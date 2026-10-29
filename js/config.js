@@ -11,7 +11,7 @@
     LAUNCH_SPEED: 520, MAX_FLY_TIME: 4.5,
 
     // Gravity and latching (v2)
-    GRAVITY: 4.5e6,
+    GRAVITY: 8.5e6,
     LATCH_PAD_MIN: 22, LATCH_PAD_FACTOR: 0.55,
     GRAVITY_RADIUS_FACTOR: 2.8,
 

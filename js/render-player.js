@@ -185,10 +185,6 @@
     var line = heatF > 0 ? mix(color, HEAT, heatF) : cool;
     var gl = heatF > 0 ? HEAT : color;
 
-    var grad = ctx.createLinearGradient(sx, sy, p.x, p.y);
-    grad.addColorStop(0, 'rgba(255,255,255,0.05)');
-    grad.addColorStop(1, 'rgba(255,255,255,1)');
-
     ctx.save();
     ctx.lineCap = 'round';
     ctx.beginPath();
@@ -201,9 +197,9 @@
     ctx.stroke();
     // body of the cord
     ctx.globalCompositeOperation = 'source-over';
-    ctx.globalAlpha = 0.45 + 0.55 * taut;
+    ctx.globalAlpha = 0.65 + 0.35 * taut;
     ctx.strokeStyle = line;
-    ctx.lineWidth = 1.1 + taut * 2.2;
+    ctx.lineWidth = 1.5 + taut * 2.2;
     ctx.stroke();
     // bright core when stretched
     if (taut > 0.05) {
@@ -219,7 +215,6 @@
     // glow knot at the ship end
     glow(ctx, gl, p.x, p.y, 13 + taut * 9, 0.55 + 0.45 * taut);
     ctx.restore();
-    void grad;
   }
 
   // ---- trajectory preview -----------------------------------------------------------
@@ -231,15 +226,15 @@
       total += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
     }
     if (total < 4) return;
+    var maxLen = hit ? 420 : 300;       // keep the guide readable at high speed
+    if (total > maxLen) total = maxLen;
     var flow = (time * 22) % spacing;
-    var travelled = -flow;       // flowing dots: spacing offset animates away from the ship
     var segStart = 0, dist = spacing - flow;
-    var lastAlpha = 0;
     for (i = 1; i < count; i++) {
       var ax = pts[i - 1].x, ay = pts[i - 1].y, bx = pts[i].x, by = pts[i].y;
       var sl = Math.hypot(bx - ax, by - ay);
       if (sl < 1e-6) continue;
-      while (dist <= segStart + sl) {
+      while (dist <= segStart + sl && dist <= total) {
         var f = (dist - segStart) / sl;
         var x = ax + (bx - ax) * f, y = ay + (by - ay) * f;
         var u = clamp(dist / total, 0, 1);
@@ -251,12 +246,10 @@
         ctx.globalAlpha = a;
         ctx.fillStyle = hit ? '#ffffff' : color;
         ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
-        lastAlpha = a;
         dist += spacing;
       }
       segStart += sl;
     }
-    void travelled; void lastAlpha;
   }
 
   function drawTargetRing(ctx, planet, time) {
@@ -285,8 +278,6 @@
     ctx.restore();
   }
 
-  var pvOut = { x: 0, y: 0 };
-
   function drawPreview(ctx, p, time) {
     var P = ORB.Physics;
     var res = null, v = null, pts = null, count = 0;
@@ -302,8 +293,7 @@
       pts = res.points;
       hit = res.hit || null;
       // only the first ~1.0 s of the path (the sample step is 1/30 s)
-      count = Math.min(pts.length, 32);
-      if (hit) count = Math.min(pts.length, 40);
+      count = Math.min(pts.length, hit ? 36 : 27);
     } else {
       // fallback: straight tangent line
       var tx, ty;
@@ -323,7 +313,6 @@
     dotsAlong(ctx, pts, count, color, time, !!hit);
     ctx.restore();
     if (hit) drawTargetRing(ctx, hit, time);
-    void pvOut;
   }
 
   // ---- ship ---------------------------------------------------------------------------
@@ -358,7 +347,7 @@
   }
 
   function drawShip(ctx, p, color, time, speedF, heatF) {
-    var r = ORB.CONFIG.PLAYER_RADIUS;
+    var r = ORB.CONFIG.PLAYER_RADIUS * 1.12;
     var rot;
     if (p.vx || p.vy) rot = Math.atan2(p.vy, p.vx);
     else if (ORB.Player && ORB.Player.tangent) { var tg = ORB.Player.tangent(p); rot = Math.atan2(tg.y, tg.x); }

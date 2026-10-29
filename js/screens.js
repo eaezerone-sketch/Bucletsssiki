@@ -11,7 +11,14 @@
   var currentName = null;
   var lastData = {};
 
+  var STAT_KEYS = ['planets', 'stars', 'height', 'slingshots', 'comets', 'wormholes'];
+
   function t(key, vars) { return ORB.I18N.t(key, vars); }
+
+  // Numeric stat value; anything missing or invalid counts as 0.
+  function num(v) {
+    return (typeof v === 'number' && isFinite(v)) ? v : 0;
+  }
 
   // Create element helper: el(tag, className, text)
   function el(tag, cls, text) {
@@ -49,6 +56,15 @@
   function bestOf(data) {
     if (data && typeof data.best === 'number') return data.best;
     return ORB.Storage.getBest();
+  }
+
+  // { got, total } for the achievements button; safe if the module is missing.
+  function achCount() {
+    try {
+      return ORB.Achievements.count();
+    } catch (e) {
+      return { got: 0, total: 0 };
+    }
   }
 
   // ---- Skins (menu only) ----
@@ -89,6 +105,8 @@
     var play = btn('btn btn-primary', t('play'), function () { handlers.onPlay && handlers.onPlay(); });
     primary.menu = play;
     card.appendChild(play);
+    sec.achBtn = btn('btn btn-ghost ach-btn', '', function () { show('achievements'); });
+    card.appendChild(sec.achBtn);
     card.appendChild(el('h2', 'section-title', t('skins')));
     skinsEl = el('div', 'skins');
     card.appendChild(skinsEl);
@@ -123,8 +141,26 @@
     card.appendChild(sec.bestStat);
     sec.badge = el('span', 'badge new-best hidden', t('newBest'));
     card.appendChild(sec.badge);
-    sec.planetsStat = el('p', 'stat');
-    card.appendChild(sec.planetsStat);
+
+    // Run stats: label + value cells.
+    var grid = el('div', 'stats-grid');
+    sec.cells = {};
+    for (var i = 0; i < STAT_KEYS.length; i++) {
+      var key = STAT_KEYS[i];
+      var cell = el('div', 'stat-cell');
+      cell.appendChild(el('div', 'stat-label', t(key)));
+      var value = el('div', 'stat-value', '0');
+      cell.appendChild(value);
+      sec.cells[key] = value;
+      grid.appendChild(cell);
+    }
+    sec.statsGrid = grid;
+    card.appendChild(grid);
+
+    // Achievements unlocked during this run.
+    sec.newAch = el('div', 'new-ach hidden');
+    card.appendChild(sec.newAch);
+
     var restart = btn('btn btn-primary', t('restart'), function () { handlers.onRestart && handlers.onRestart(); });
     primary.over = restart;
     card.appendChild(restart);
@@ -133,10 +169,25 @@
     return sec;
   }
 
+  function buildAchievements() {
+    var sec = el('section', 'screen screen-achievements');
+    var card = el('div', 'screen-card');
+    card.appendChild(el('h2', 'screen-title', t('achievements')));
+    sec.list = el('div', 'ach-list');
+    card.appendChild(sec.list);
+    var back = btn('btn btn-primary', t('back'), function () { show('menu'); });
+    primary.achievements = back;
+    card.appendChild(back);
+    sec.appendChild(card);
+    return sec;
+  }
+
   // ---- Dynamic text ----
   function fillMenu(data) {
     var best = bestOf(data);
     sections.menu.bestStat.textContent = t('best') + ': ' + best;
+    var c = achCount();
+    sections.menu.achBtn.textContent = t('achievements') + ' ' + c.got + '/' + c.total;
     renderSkins(best);
     refreshSound();
   }
@@ -147,12 +198,47 @@
 
   function fillOver(data) {
     var d = data || {};
+    var st = d.stats || {};
     var best = bestOf(d);
     sections.over.reason.textContent = t(d.reason || 'lostTime');
     sections.over.bigScore.textContent = String(d.score || 0);
     sections.over.bestStat.textContent = t('best') + ': ' + best;
     sections.over.badge.classList.toggle('hidden', !d.newBest);
-    sections.over.planetsStat.textContent = t('planets') + ': ' + (d.planets || 0);
+
+    var cells = sections.over.cells;
+    var planets = typeof st.planets === 'number' ? st.planets : d.planets;
+    cells.planets.textContent = String(num(planets));
+    cells.stars.textContent = String(num(st.stars));
+    cells.height.textContent = Math.floor(num(st.height)) + ' ' + t('meters');
+    cells.slingshots.textContent = String(num(st.slingshots));
+    cells.comets.textContent = String(num(st.comets));
+    cells.wormholes.textContent = String(num(st.wormholes));
+
+    var box = sections.over.newAch;
+    box.innerHTML = '';
+    var fresh = Array.isArray(d.newAchievements) ? d.newAchievements : [];
+    box.classList.toggle('hidden', fresh.length === 0);
+    if (fresh.length) {
+      box.appendChild(el('div', 'new-ach-title', t('achievementUnlocked')));
+      for (var i = 0; i < fresh.length; i++) {
+        box.appendChild(el('div', 'new-ach-item', ORB.Achievements.name(fresh[i])));
+      }
+    }
+  }
+
+  function fillAchievements() {
+    var list = sections.achievements.list;
+    var A = ORB.Achievements;
+    var done = A.unlocked();
+    list.innerHTML = '';
+    for (var i = 0; i < A.list.length; i++) {
+      var a = A.list[i];
+      var got = done.indexOf(a.id) !== -1;
+      var item = el('div', got ? 'ach' : 'ach locked');
+      item.appendChild(el('div', 'ach-name', A.name(a)));
+      item.appendChild(el('div', 'ach-desc', A.desc(a)));
+      list.appendChild(item);
+    }
   }
 
   // ---- Public API ----
@@ -165,9 +251,11 @@
     sections.menu = buildMenu();
     sections.pause = buildPause();
     sections.over = buildOver();
+    sections.achievements = buildAchievements();
     screensEl.appendChild(sections.menu);
     screensEl.appendChild(sections.pause);
     screensEl.appendChild(sections.over);
+    screensEl.appendChild(sections.achievements);
   }
 
   function show(name, data) {
@@ -176,6 +264,7 @@
     if (name === 'menu') fillMenu(lastData);
     else if (name === 'pause') fillPause();
     else if (name === 'over') fillOver(lastData);
+    else if (name === 'achievements') fillAchievements();
 
     for (var k in sections) {
       if (Object.prototype.hasOwnProperty.call(sections, k)) {
