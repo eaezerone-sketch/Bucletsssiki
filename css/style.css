@@ -682,8 +682,8 @@ button {
 }
 
 .skin.locked {
-  opacity: 0.45;
-  filter: grayscale(0.7);
+  opacity: 0.62;
+  filter: grayscale(0.5);
   cursor: not-allowed;
 }
 
@@ -727,9 +727,9 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 10px;
+  font-size: clamp(9px, 2.5vw, 10px);
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-dim);
 }
@@ -840,8 +840,8 @@ button {
 }
 
 .ach.locked {
-  opacity: 0.45;
-  filter: grayscale(0.8);
+  opacity: 0.7;
+  filter: grayscale(0.6);
   border-color: rgba(238, 242, 255, 0.12);
   background: rgba(255, 255, 255, 0.03);
   box-shadow: none;
@@ -991,8 +991,7 @@ button {
 
   /* the satellite sits low on short screens, so show the hint near the top */
   .tutorial-hint {
-    top: calc(var(--safe-t) + var(--hud-h) + 24px);
-    bottom: auto;
+    top: auto;
   }
 
   .tutorial-hint .tap-icon {
@@ -1079,9 +1078,11 @@ button {
     height: 20px;
   }
 
+  /* bottom edge, clear of the power-up chips at the top and the satellite above */
   .tutorial-hint {
-    bottom: calc(var(--safe-b) + 8vh);
-    gap: 8px;
+    bottom: calc(var(--safe-b) + 10px);
+    max-width: min(92vw, 560px);
+    gap: 6px;
   }
 
   .tap-icon {
@@ -1099,7 +1100,7 @@ button {
   }
 
   .hud-toast {
-    top: calc(var(--safe-t) + var(--hud-h) + 34px);
+    top: calc(var(--safe-t) + var(--hud-h) + 42px);
     padding: 6px 12px;
   }
 
@@ -1156,6 +1157,123 @@ button {
 
   .screen-achievements .screen-card {
     max-width: 520px;
+  }
+}
+
+/* landscape phones: menu and game-over split into two columns so they fit a short height */
+@media (max-height: 500px) and (min-width: 600px) {
+  .screen-menu .screen-card,
+  .screen-over .screen-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 22px;
+    row-gap: 8px;
+    align-items: center;
+    max-width: 640px;
+  }
+
+  .screen-menu .screen-card > *,
+  .screen-over .screen-card > * {
+    margin: 0;
+  }
+
+  /* menu: left = title, subtitle, best, play, achievements; right = skins, sound */
+  .screen-menu .screen-card > :nth-child(1) { grid-column: 1; grid-row: 1; }
+  .screen-menu .screen-card > :nth-child(2) { grid-column: 1; grid-row: 2; }
+  .screen-menu .screen-card > :nth-child(3) { grid-column: 1; grid-row: 3; }
+  .screen-menu .screen-card > :nth-child(4) { grid-column: 1; grid-row: 4; }
+  .screen-menu .screen-card > :nth-child(5) { grid-column: 1; grid-row: 5; }
+  .screen-menu .screen-card > :nth-child(6) { grid-column: 2; grid-row: 1; margin: 0; }
+  .screen-menu .screen-card > :nth-child(7) { grid-column: 2; grid-row: 2 / span 3; }
+  .screen-menu .screen-card > :nth-child(8) { grid-column: 2; grid-row: 5; }
+
+  /* game over: left = title, reason, score, best, badge; right = stats, new achievements, buttons */
+  .screen-over .screen-card > :nth-child(1) { grid-column: 1; grid-row: 1; }
+  .screen-over .screen-card > :nth-child(2) { grid-column: 1; grid-row: 2; }
+  .screen-over .screen-card > :nth-child(3) { grid-column: 1; grid-row: 3; }
+  .screen-over .screen-card > :nth-child(4) { grid-column: 1; grid-row: 4; }
+  .screen-over .screen-card > :nth-child(5) { grid-column: 1; grid-row: 5; justify-self: center; }
+  .screen-over .screen-card > :nth-child(6) { grid-column: 2; grid-row: 1 / span 2; }
+  .screen-over .screen-card > :nth-child(7) { grid-column: 2; grid-row: 3; }
+  .screen-over .screen-card > :nth-child(8) { grid-column: 2; grid-row: 4; }
+  .screen-over .screen-card > :nth-child(9) { grid-column: 2; grid-row: 5; }
+}
+
+/* short portrait phones (320x568 class): tighter cards so menu and game over fit without scrolling */
+@media (max-width: 480px) and (max-height: 640px) and (orientation: portrait) {
+  .screen {
+    padding:
+      calc(var(--safe-t) + 8px)
+      calc(var(--safe-r) + 12px)
+      calc(var(--safe-b) + 8px)
+      calc(var(--safe-l) + 12px);
+  }
+
+  .screen-card {
+    padding: 14px 16px;
+  }
+
+  .game-title {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    font-size: 13px;
+  }
+
+  .stat {
+    margin-top: 6px;
+  }
+
+  .section-title {
+    margin: 12px 0 8px;
+  }
+
+  .skins {
+    gap: 6px;
+  }
+
+  .skin {
+    min-height: 48px;
+    padding: 6px 4px;
+    gap: 4px;
+  }
+
+  .skin-dot {
+    width: 22px;
+    height: 22px;
+  }
+
+  .screen-card .btn {
+    margin-top: 8px;
+    min-height: 48px;
+  }
+
+  .screen-title {
+    font-size: 26px;
+  }
+
+  .big-score {
+    margin-top: 6px;
+    font-size: 44px;
+  }
+
+  .reason {
+    margin-top: 4px;
+  }
+
+  .stats-grid {
+    margin-top: 10px;
+    gap: 6px;
+  }
+
+  .stat-cell {
+    padding: 5px 4px;
+  }
+
+  .new-ach {
+    margin-top: 8px;
   }
 }
 

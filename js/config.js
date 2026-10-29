@@ -11,15 +11,15 @@
     LAUNCH_SPEED: 520, MAX_FLY_TIME: 4.5,
 
     // Gravity and latching (v2)
-    GRAVITY: 8.5e6,
+    GRAVITY: 7e6,
     LATCH_PAD_MIN: 22, LATCH_PAD_FACTOR: 0.55,
-    GRAVITY_RADIUS_FACTOR: 2.8,
+    GRAVITY_RADIUS_FACTOR: 4.4,
 
     // Tether spring (v2)
     TETHER_K: 55, TETHER_DAMP: 4.5, TETHER_TANGENT: 2.2,
 
     // Launch boost and speed limits (v2)
-    LAUNCH_BOOST: 300, LAUNCH_MIN_SPEED: 480, MAX_SPEED: 950,
+    LAUNCH_BOOST: 350, LAUNCH_MIN_SPEED: 520, MAX_SPEED: 950,
     IGNORE_FROM_TIME: 0.35, PHYS_SUBSTEPS: 4,
 
     // Planet hazards (v2)

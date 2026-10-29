@@ -26,7 +26,10 @@
         var kill = (p.radius || 0) * BLACKHOLE_KILL_FACTOR;
         if (kill > zone) zone = kill;
       }
-      if (ORB.M.dist(x, y, p.x, p.y) < zone + r) return true;
+      // distance to the planet's whole horizontal motion range (moving planets)
+      var amp = p.moveAmp || 0, bx = amp > 0 && typeof p.baseX === 'number' ? p.baseX : p.x;
+      var dx = Math.max(0, Math.abs(x - bx) - amp);
+      if (Math.sqrt(dx * dx + (y - p.y) * (y - p.y)) < zone + r) return true;
     }
     return false;
   }

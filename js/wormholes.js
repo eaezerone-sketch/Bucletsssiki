@@ -26,7 +26,10 @@
     var planets = (ORB.Planets && ORB.Planets.list) || [];
     for (var i = 0; i < planets.length; i++) {
       var p = planets[i];
-      if (ORB.M.dist(x, y, p.x, p.y) < avoidRadius(p) + RADIUS + 10) return false;
+      // distance to the planet's whole horizontal motion range (moving planets)
+      var amp = p.moveAmp || 0, bx = amp > 0 && typeof p.baseX === 'number' ? p.baseX : p.x;
+      var dx = Math.max(0, Math.abs(x - bx) - amp);
+      if (Math.sqrt(dx * dx + (y - p.y) * (y - p.y)) < avoidRadius(p) + RADIUS + 10) return false;
     }
     var ends = ORB.Wormholes.list;
     for (var j = 0; j < ends.length; j++) {

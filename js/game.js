@@ -26,6 +26,7 @@
   var musicWanted = false, musicRunning = false;
   var errSeen = {};
   var lastHeight = -1, lastVoidHud = -1;
+  var whPending = [];        // [prev, planet, diff, ...] wormhole spawns waiting for the next planet
 
   // ---------- safety helpers ----------
 
@@ -81,7 +82,8 @@
 
   function startMusic() {
     musicWanted = true;
-    if (musicRunning) return;
+    // Retry when the audio context could not start earlier (e.g. no gesture yet).
+    if (musicRunning && opt('Music', 'isPlaying') !== false) return;
     musicRunning = true;
     opt('Music', 'setMuted', ORB.Audio.isMuted());
     opt('Music', 'start');
@@ -140,8 +142,23 @@
       if (!prev) continue;
       ORB.Stars.spawnBetween(prev, p, diff);
       ORB.Powerups.maybeSpawnBetween(prev, p, diff);
-      opt('Wormholes', 'maybeSpawnBetween', prev, p, diff);
+      // The wormhole exit sits above p, where the next planet is generated: wait
+      // until that planet exists so the exit is placed clear of it.
+      whPending.push(prev, p, diff);
     }
+    var top = ORB.Planets.highest();
+    var keep = 0;
+    for (var k = 0; k < whPending.length; k += 3) {
+      var wp = whPending[k + 1];
+      if (wp === top) {
+        whPending[keep++] = whPending[k];
+        whPending[keep++] = wp;
+        whPending[keep++] = whPending[k + 2];
+      } else if (ORB.Planets.list.indexOf(wp) !== -1) {
+        opt('Wormholes', 'maybeSpawnBetween', whPending[k], wp, whPending[k + 2]);
+      }
+    }
+    whPending.length = keep;
   }
 
   // Remove everything that has fallen far below.
@@ -158,6 +175,7 @@
 
   function setupWorld() {
     var CFG = ORB.CONFIG;
+    whPending.length = 0;
     ORB.Planets.reset();
     ORB.Stars.reset();
     ORB.Asteroids.reset();
