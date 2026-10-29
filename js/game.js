@@ -512,14 +512,30 @@
       }
     }
 
+    // Elastic side walls: bounce instead of dying.
+    var W = CFG.WORLD_W;
+    if (p.x < 14 || p.x > W - 14) {
+      var left = p.x < 14;
+      p.x = left ? 14 : W - 14;
+      if (left ? p.vx < 0 : p.vx > 0) {
+        p.vx = -p.vx * 0.8;
+        p.speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        bendValid = false;
+        ORB.Particles.burst(p.x, p.y, CFG.COLORS.accent, 8, 120, 0.35, { type: 'spark' });
+        ORB.Audio.play('latch', 0.2);
+        ORB.Camera.shake(2, 0.12);
+        ORB.Haptics.buzz(6);
+      }
+    }
+
     var hit = ORB.Planets.findLatch(p.x, p.y, ign);
     if (hit) {
       onLatch(hit);
     } else if (p.flyTime > CFG.MAX_FLY_TIME) {
       die('lostTime');
       return true;
-    } else if (p.x < -90 || p.x > CFG.WORLD_W + 90) {
-      die('lostScreen');
+    } else if (p.x < -200 || p.x > W + 200) {
+      die('lostScreen'); // safety net
       return true;
     }
     return false;
@@ -676,7 +692,7 @@
       ORB.HUD.flash(t('voidNear'), CFG.COLORS.danger);
       ORB.Audio.play('void');
     }
-    if (vdist < ORB.View.h * 0.5) tut('void');
+    if (vdist < ORB.View.h * 0.5 && ORB.Score.planets >= 3) tut('void');
 
     updateCamera(dt);
     ORB.Particles.update(dt);
