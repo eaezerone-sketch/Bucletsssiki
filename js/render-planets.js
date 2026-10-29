@@ -31,9 +31,10 @@
       ctx.lineWidth = 1.5;
       ctx.setLineDash([]);
     } else {
-      ctx.strokeStyle = col(M, p.hue, 60, 70, 0.14);
-      ctx.lineWidth = 1;
-      ctx.setLineDash([3, 7]);
+      // Unvisited orbits are the targets, so keep them clearly visible.
+      ctx.strokeStyle = col(M, p.hue, 70, 72, p.visited ? 0.16 : 0.5);
+      ctx.lineWidth = p.visited ? 1 : 1.5;
+      ctx.setLineDash([4, 6]);
     }
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.orbitRadius, 0, TAU);

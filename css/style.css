@@ -605,7 +605,8 @@ button {
   max-width: min(88vw, 360px);
 }
 
-.tutorial-hint.show {
+.tutorial-hint.show,
+#tutorial.show .tutorial-hint {
   opacity: 1;
   transform: translate(-50%, 0);
 }
@@ -694,6 +695,25 @@ button {
 /* ---------- short landscape (phones on their side) ---------- */
 
 @media (max-height: 500px) {
+  .skin-name {
+    white-space: nowrap;
+  }
+
+  .skin-lock {
+    width: 100%;
+    font-size: 11px;
+  }
+
+  /* the satellite sits low on short screens, so show the hint near the top */
+  .tutorial-hint {
+    top: calc(var(--safe-t) + var(--hud-h) + 24px);
+    bottom: auto;
+  }
+
+  .tutorial-hint .tap-icon {
+    display: none;
+  }
+
   :root {
     --hud-h: 52px;
   }
@@ -763,7 +783,8 @@ button {
 
   .skin {
     flex-direction: row;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 2px 8px;
     min-height: 48px;
     padding: 6px 8px;
   }
