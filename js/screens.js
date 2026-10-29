@@ -283,6 +283,9 @@
       if (Object.prototype.hasOwnProperty.call(sections, k)) sections[k].classList.remove('active');
     }
     if (screensEl) screensEl.classList.remove('has-active');
+    // Drop focus from the hidden button so Space/Enter reach the game again.
+    var a = document.activeElement;
+    if (a && a.blur && screensEl && screensEl.contains(a)) a.blur();
     currentName = null;
   }
 

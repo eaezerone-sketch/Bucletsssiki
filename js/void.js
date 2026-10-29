@@ -36,7 +36,7 @@
 
   // Surface height of one wave layer at world x (y down; smaller = higher).
   function wave(x, t, L) {
-    return L.base + L.amp * (
+    return ORB.Void.y + L.base + L.amp * (
       Math.sin(x * 0.011 * L.fx + t * 0.9 + L.ph) +
       0.5 * Math.sin(x * 0.027 * L.fx - t * 1.7 + L.ph * 1.3) +
       0.25 * Math.sin(x * 0.061 * L.fx + t * 2.9 + L.ph * 0.7));
