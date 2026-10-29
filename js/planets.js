@@ -244,7 +244,7 @@
       b.orbitRadius = radius;
       b.latchRadius = 0;
       b.gravityRadius = 230;
-      b.mass = 3.2;
+      b.mass = 1.2; // strong enough to slingshot, weak enough to survive a ~45 px pass
       b.tetherK = 0;
       b.angularSpeed = 0;
       b.spin = randSign() * rand(0.4, 0.9);

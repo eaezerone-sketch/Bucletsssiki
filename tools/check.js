@@ -412,7 +412,7 @@ function runBasics(ORB) {
         if (b.type !== 'blackhole') return;
         bi.add('blackhole radius outside 14..18', b.radius < 14 - EPS || b.radius > 18 + EPS);
         bi.add('blackhole gravityRadius != 230', b.gravityRadius !== 230);
-        bi.add('blackhole mass != 3.2', Math.abs(b.mass - 3.2) > EPS);
+        bi.add('blackhole mass != 1.2', Math.abs(b.mass - 1.2) > EPS);
         bi.add('blackhole must not be latchable (latchRadius > 0)', b.latchRadius > 0);
         bi.add('blackhole x outside 50..WORLD_W-50', b.x < 50 - EPS || b.x > C.WORLD_W - 50 + EPS);
         const ci = rchain.findIndex(q => q.y < b.y); // first chain planet above
@@ -756,7 +756,7 @@ function runPredictTests(ORB) {
 
     // Black hole: stops at the kill radius, no hit.
     const bh = { type: 'blackhole', x: 210, y: 0, radius: 16, orbitRadius: 16, latchRadius: 0, gravityRadius: 230,
-      mass: 3.2, tetherK: 0, dead: false };
+      mass: 1.2, tetherK: 0, dead: false };
     const kr = bh.radius * C.BLACKHOLE_KILL_FACTOR;
     const rb = Ph.predict(210, 300, 0, -500, [bh], null, 1.3, 1 / 30);
     const last = rb.points[rb.points.length - 1];

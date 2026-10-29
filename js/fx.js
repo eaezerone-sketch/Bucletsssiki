@@ -59,10 +59,12 @@
   var speedTarget = 0;
   var speedCur = 0;
 
-  // Cached danger gradient, rebuilt only when the view size changes.
+  // Danger vignette cached as a device-resolution sprite (rebuilt only when the view
+  // size changes). Blitting it 1:1 is much cheaper than filling a radial gradient every frame.
   var gradW = 0;
   var gradH = 0;
-  var dangerGrad = null;
+  var gradDpr = 0;
+  var dangerCanvas = null;
 
   function findFree(pool) {
     for (var i = 0; i < pool.length; i++) {
@@ -84,16 +86,25 @@
     l.spd = 0.6 + Math.random() * 0.7;  // view heights per second at full speed
   }
 
-  function ensureGradient(ctx, W, H) {
-    if (dangerGrad && W === gradW && H === gradH) return;
+  function ensureGradient(W, H) {
+    var dpr = ORB.View.dpr || 1;
+    if (dangerCanvas && W === gradW && H === gradH && dpr === gradDpr) return;
     gradW = W;
     gradH = H;
+    gradDpr = dpr;
+    if (!dangerCanvas) dangerCanvas = document.createElement('canvas');
+    dangerCanvas.width = Math.max(1, Math.round(W * dpr));
+    dangerCanvas.height = Math.max(1, Math.round(H * dpr));
+    var g = dangerCanvas.getContext('2d');
+    g.setTransform(dangerCanvas.width / W, 0, 0, dangerCanvas.height / H, 0, 0);
     var r = Math.sqrt(W * W + H * H) / 2;
-    dangerGrad = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.3, W / 2, H / 2, r);
-    dangerGrad.addColorStop(0, 'rgba(' + DANGER_RGB + ', 0)');
-    dangerGrad.addColorStop(0.5, 'rgba(' + DANGER_RGB + ', 0)');
-    dangerGrad.addColorStop(0.8, 'rgba(' + DANGER_RGB + ', 0.35)');
-    dangerGrad.addColorStop(1, 'rgba(' + DANGER_RGB + ', 0.85)');
+    var grad = g.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.3, W / 2, H / 2, r);
+    grad.addColorStop(0, 'rgba(' + DANGER_RGB + ', 0)');
+    grad.addColorStop(0.5, 'rgba(' + DANGER_RGB + ', 0)');
+    grad.addColorStop(0.8, 'rgba(' + DANGER_RGB + ', 0.35)');
+    grad.addColorStop(1, 'rgba(' + DANGER_RGB + ', 0.85)');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, W, H);
   }
 
   ORB.FX = {
@@ -274,11 +285,10 @@
       }
 
       if (dangerCur > 0.004) {
-        ensureGradient(ctx, W, H);
+        ensureGradient(W, H);
         var pulse = 0.55 + 0.45 * (0.5 + 0.5 * Math.sin(dangerPhase));
         ctx.globalAlpha = clamp01(dangerCur * pulse);
-        ctx.fillStyle = dangerGrad;
-        ctx.fillRect(0, 0, W, H);
+        ctx.drawImage(dangerCanvas, 0, 0, W, H);
       }
 
       if (speedCur > 0.01) {

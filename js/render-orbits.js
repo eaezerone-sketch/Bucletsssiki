@@ -99,7 +99,7 @@
     var bucket = Math.round(wrapHue(hue) / 30) % 12;
     var spr = sprites[bucket];
     if (spr) return spr;
-    var size = 96;
+    var size = 128;
     var c = document.createElement('canvas');
     c.width = size;
     c.height = size;
@@ -133,6 +133,9 @@
     if (!spr) return;
     ctx.save();
     ctx.globalAlpha = alpha;
+    // Nearest-neighbour upscale: the glow is so soft that blocks are invisible, and it is
+    // several times cheaper than a bilinear stretch of the same area.
+    ctx.imageSmoothingEnabled = false;
     ctx.drawImage(spr, p.x - R, p.y - R, R * 2, R * 2);
     ctx.restore();
   }

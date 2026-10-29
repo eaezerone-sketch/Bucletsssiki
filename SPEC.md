@@ -170,7 +170,7 @@ Type table (applied on top of the generic radius/orbit computation):
 | jelly | r | 1.0 | 1 | 0.5 | wobbles a lot |
 | star | r*1.15 | 1.4 | 1 | 1 | heat rises while orbiting it |
 | crumble | r*0.85 | 0.9 | 1 | 1 | starts crumbling on latch |
-| blackhole | 14–18 | 3.2 | – | – | no latch; gravityRadius 230; kill radius = radius*BLACKHOLE_KILL_FACTOR |
+| blackhole | 14–18 | 1.2 | – | – | no latch; gravityRadius 230; kill radius = radius*BLACKHOLE_KILL_FACTOR |
 
 `orbitRadius = radius + ORBIT_GAP`, `latchRadius` and `gravityRadius` per CONFIG. Moons:
 `dist = radius + 10..22`, `r = 2..4.5`, `speed ±0.6..1.6`. `spin = ±(0.15..0.5)`. `seed` random int.

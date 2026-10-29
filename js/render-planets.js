@@ -5,6 +5,8 @@
   var TAU = Math.PI * 2, PI = Math.PI;
   var STRIPS = 28;              // longitude strips used to wrap a texture onto a sphere
   var MAX_BUILDS = 2;           // textures generated per frame (spreads the cost)
+  var MAX_REFRESH = 3;          // surface buffers re-rendered per frame (others keep last frame's)
+  var REFRESH_PX = 1.5;         // re-render a surface once it has turned ~1.5 buffer px
 
   var cache = {};               // planet id -> entry (textures, sprites, crack data)
   var shadeCache = {};          // type|size -> shared lighting overlay sprite
@@ -13,6 +15,7 @@
   var ridSeq = 0;
   var stampNo = 0;
   var builtThisFrame = 0;
+  var refreshedThisFrame = 0;
 
   // ---------------------------------------------------------------- helpers
 
@@ -440,7 +443,7 @@
 
   // Soft atmosphere halo, drawn behind the body (covers 0..2.4 radii).
   function haloSprite(type, hue, a) {
-    var S = 128, c = mk(S, S), x = c.getContext('2d'), R = S / 2, rc = rimColor(type, hue);
+    var S = 192, c = mk(S, S), x = c.getContext('2d'), R = S / 2, rc = rimColor(type, hue);
     var k = 1 / 2.4;
     var gr = x.createRadialGradient(R, R, R * k * 0.8, R, R, R);
     gr.addColorStop(0, hsl(rc[0], rc[1], rc[2], a));
@@ -693,7 +696,13 @@
   function refreshBuffers(e, p, time, rot) {
     var R = e.TH / 2;
     var moved = Math.abs(rot - e.bufRot) * 1.5 + Math.abs(time - e.bufT) * 0.05;
-    if (e.buf && moved * R < 1 && !(e.type === 'jelly' && Math.abs(time - e.bufT) > 0.1)) return;
+    if (e.buf) {
+      var jellyDue = e.type === 'jelly' && Math.abs(time - e.bufT) > 0.1;
+      if (moved * R < REFRESH_PX * 1.5 && !jellyDue) return;
+      // Frame budget: overdue surfaces simply wait a frame (their `moved` keeps growing).
+      if (refreshedThisFrame >= MAX_REFRESH) return;
+    }
+    refreshedThisFrame++;
     e.bufRot = rot; e.bufT = time;
     if (!e.buf) {
       e.buf = mk(e.TH, e.TH); e.bctx = e.buf.getContext('2d');
@@ -794,7 +803,11 @@
     var s = r * 2.4 * (1 + 0.025 * Math.sin(time * 1.7 + e.phase));
     ctx.globalCompositeOperation = 'lighter';
     ctx.globalAlpha = clamp(pulse * (isCur ? 1.3 : 1), 0, 1);
+    // Nearest-neighbour stretch: the halo is a very soft gradient, and this is far cheaper
+    // than a bilinear additive blit of the same area.
+    ctx.imageSmoothingEnabled = false;
     ctx.drawImage(e.halo, p.x - s, p.y - s, s * 2, s * 2);
+    ctx.imageSmoothingEnabled = true;
     ctx.globalCompositeOperation = 'source-over';
     ctx.globalAlpha = 1;
   }
@@ -892,6 +905,7 @@
 
       stampNo++;
       builtThisFrame = 0;
+      refreshedThisFrame = 0;
 
       ctx.save();
       ctx.setLineDash([]);
