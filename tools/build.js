@@ -27,4 +27,10 @@ var out = [
 
 fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
 fs.writeFileSync(path.join(root, 'dist/orbita.html'), out);
+// Standalone copy: a full HTML document that opens straight from disk (double-click).
+var standalone = '<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n' +
+  '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">\n' +
+  '</head>\n<body>\n' + out + '\n</body>\n</html>\n';
+fs.writeFileSync(path.join(root, 'dist/orbita-standalone.html'), standalone);
+
 console.log('dist/orbita.html', (out.length / 1024).toFixed(1) + ' KB, ' + scripts.length + ' scripts');

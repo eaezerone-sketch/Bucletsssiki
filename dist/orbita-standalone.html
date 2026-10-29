@@ -1,0 +1,3666 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+</head>
+<body>
+<title>Орбита</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#05010f">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+CiAgPGRlZnM+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9ImJnIiBjeD0iNTAlIiBjeT0iNDUlIiByPSI3NSUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxNDBhMzMiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDUwMTBmIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJoYWxvIiBjeD0iNTAlIiBjeT0iNTAlIiByPSI1MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZjVmZDIiIHN0b3Atb3BhY2l0eT0iMC40NSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZjVmZDIiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0icGxhbmV0IiBjeD0iMzglIiBjeT0iMzQlIiByPSI3MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmIzZWMiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjQ1IiBzdG9wLWNvbG9yPSIjZmY1ZmQyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzRhMGY1YyIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0idHJhaWwiIHgxPSIyMzAiIHkxPSIxMDgiIHgyPSIzMzEiIHkyPSIxMjYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2RmOWZmIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjN2RmOWZmIiBzdG9wLW9wYWNpdHk9IjAuOSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxmaWx0ZXIgaWQ9Imdsb3ciIHg9Ii0xMDAlIiB5PSItMTAwJSIgd2lkdGg9IjMwMCUiIGhlaWdodD0iMzAwJSI+CiAgICAgIDxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjUiIHJlc3VsdD0iYiIvPgogICAgICA8ZmVNZXJnZT4KICAgICAgICA8ZmVNZXJnZU5vZGUgaW49ImIiLz4KICAgICAgICA8ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiLz4KICAgICAgPC9mZU1lcmdlPgogICAgPC9maWx0ZXI+CiAgPC9kZWZzPgoKICA8IS0tIGJhY2tncm91bmQgLS0+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIHJ5PSIxMTIiIGZpbGw9InVybCgjYmcpIi8+CgogIDwhLS0gcGxhbmV0IGdsb3cgYW5kIGJvZHkgLS0+CiAgPGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIxMjAiIGZpbGw9InVybCgjaGFsbykiLz4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjY0IiBmaWxsPSJ1cmwoI3BsYW5ldCkiIGZpbHRlcj0idXJsKCNnbG93KSIvPgoKICA8IS0tIGRhc2hlZCBvcmJpdCByaW5nIC0tPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTUwIiBmaWxsPSJub25lIiBzdHJva2U9IiM3ZGY5ZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjQ1IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1kYXNoYXJyYXk9IjEwIDEyIi8+CgogIDwhLS0gc2F0ZWxsaXRlIHRyYWlsIC0tPgogIDxwYXRoIGQ9Ik0gMjMwIDEwOC4zIEEgMTUwIDE1MCAwIDAgMSAzMzEgMTI2LjEiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCN0cmFpbCkiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CgogIDwhLS0gc2F0ZWxsaXRlIC0tPgogIDxjaXJjbGUgY3g9IjMzMSIgY3k9IjEyNiIgcj0iMjAiIGZpbGw9IiM3ZGY5ZmYiIGZpbGwtb3BhY2l0eT0iMC4yNSIvPgogIDxjaXJjbGUgY3g9IjMzMSIgY3k9IjEyNiIgcj0iOSIgZmlsbD0iIzdkZjlmZiIgZmlsdGVyPSJ1cmwoI2dsb3cpIi8+Cjwvc3ZnPgo=" type="image/svg+xml">
+<style>
+:root { color-scheme: dark; }
+/* ORBITA - neon space UI. Layout: #app > canvas + #hud + #screens + #tutorial */
+
+:root {
+  --bg1: #05010f;
+  --bg2: #140a33;
+  --accent: #7df9ff;
+  --accent2: #ff5fd2;
+  --star: #ffd86b;
+  --danger: #ff5a5a;
+  --ok: #7dffb0;
+  --text: #eef2ff;
+  --text-dim: rgba(238, 242, 255, 0.72);
+  --glass: linear-gradient(160deg, rgba(40, 24, 90, 0.55), rgba(10, 6, 30, 0.6));
+  --glass-border: rgba(125, 249, 255, 0.24);
+  --glow-accent: 0 0 18px rgba(125, 249, 255, 0.45);
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --hud-h: clamp(56px, 9vh, 84px);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ---------- base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg1);
+  color: var(--text);
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(14px, 3.6vw, 16px);
+  line-height: 1.4;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- app shell ---------- */
+
+#app {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 0%, var(--bg2) 0%, var(--bg1) 70%);
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+#game {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  outline: none;
+}
+
+#hud,
+#screens,
+#tutorial {
+  position: absolute;
+  inset: 0;
+}
+
+#hud {
+  z-index: 5;
+  pointer-events: none;
+}
+
+#tutorial {
+  z-index: 6;
+  pointer-events: none;
+}
+
+#screens {
+  z-index: 10;
+  pointer-events: none;
+}
+
+#screens.has-active {
+  pointer-events: auto;
+}
+
+/* ---------- HUD ---------- */
+
+.hud-top {
+  position: absolute;
+  top: calc(var(--safe-t) + 10px);
+  left: calc(var(--safe-l) + 12px);
+  right: calc(var(--safe-r) + 12px);
+  height: var(--hud-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hud-score {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.3em;
+  font-size: clamp(40px, 10vw, 72px);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.hud-score-value {
+  color: var(--text);
+  text-shadow:
+    0 0 18px rgba(125, 249, 255, 0.6),
+    0 2px 0 rgba(0, 0, 0, 0.4);
+  display: inline-block;
+}
+
+.hud-combo {
+  font-size: 0.34em;
+  font-weight: 800;
+  line-height: 1;
+  padding: 0.35em 0.7em;
+  border: 1px solid var(--accent2);
+  border-radius: 999px;
+  color: var(--accent2);
+  background: rgba(255, 95, 210, 0.12);
+  text-shadow: 0 0 10px rgba(255, 95, 210, 0.7);
+  box-shadow: 0 0 14px rgba(255, 95, 210, 0.35);
+  white-space: nowrap;
+  align-self: center;
+}
+
+.icon-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(238, 242, 255, 0.22);
+  background: rgba(20, 12, 50, 0.5);
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 14px rgba(125, 249, 255, 0.12);
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  transition: transform 0.15s var(--ease-out), background 0.2s, box-shadow 0.2s;
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  display: block;
+}
+
+.icon-btn:hover {
+  background: rgba(125, 249, 255, 0.14);
+  box-shadow: var(--glow-accent);
+}
+
+.icon-btn:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.hud-powerups {
+  position: absolute;
+  top: calc(var(--safe-t) + 10px + var(--hud-h) + 4px);
+  left: var(--safe-l);
+  right: var(--safe-r);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.pu {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: clamp(11px, 2.8vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--text);
+  background: rgba(10, 6, 30, 0.6);
+  border: 1px solid currentColor;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: chipIn 0.35s var(--ease-out) both;
+}
+
+.pu::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.pu-shield {
+  color: var(--accent);
+  box-shadow: 0 0 12px rgba(125, 249, 255, 0.35);
+}
+
+.pu-magnet {
+  color: var(--accent2);
+  box-shadow: 0 0 12px rgba(255, 95, 210, 0.35);
+}
+
+.pu-slow {
+  color: var(--ok);
+  box-shadow: 0 0 12px rgba(125, 255, 176, 0.35);
+}
+
+/* Score pop: JS adds .bump briefly; restarts when the class is re-added after reflow. */
+.bump {
+  animation: scorePop 0.3s var(--ease-out);
+}
+
+/* Flash text: centered, pops in and fades out (JS removes .show after 900ms). */
+.hud-flash {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  padding: 0 16px;
+  text-align: center;
+  font-size: clamp(28px, 8vw, 54px);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: var(--accent);
+  text-shadow: 0 0 22px currentColor, 0 2px 0 rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.hud-flash.show {
+  animation: flashPop 0.9s var(--ease-out) both;
+}
+
+/* ---------- screens (menu / pause / over) ---------- */
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding:
+    calc(var(--safe-t) + 16px)
+    calc(var(--safe-r) + 16px)
+    calc(var(--safe-b) + 16px)
+    calc(var(--safe-l) + 16px);
+  background: rgba(5, 1, 15, 0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.screen.active {
+  display: flex;
+  animation: fadeIn 0.25s ease-out both;
+}
+
+.screen.active .screen-card {
+  animation: cardIn 0.4s var(--ease-out) both;
+}
+
+.screen-card {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  max-width: 420px;
+  padding: clamp(18px, 4.5vw, 28px);
+  text-align: center;
+  border-radius: 22px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(125, 249, 255, 0.12);
+}
+
+.screen-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(125, 249, 255, 0.5), transparent 40%, rgba(255, 95, 210, 0.45));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.game-title {
+  margin: 0;
+  font-size: clamp(40px, 13vw, 64px);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1.05;
+  color: var(--accent);
+  background: linear-gradient(90deg, var(--accent), #b38bff 55%, var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 14px rgba(125, 249, 255, 0.35));
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: var(--text-dim);
+  font-size: clamp(14px, 3.8vw, 16px);
+}
+
+.screen-title {
+  margin: 0;
+  font-size: clamp(26px, 7.5vw, 34px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-shadow: 0 0 16px rgba(125, 249, 255, 0.4);
+}
+
+.stat {
+  margin: 12px 0 0;
+  font-size: clamp(15px, 4vw, 18px);
+  font-weight: 700;
+  color: var(--star);
+  text-shadow: 0 0 12px rgba(255, 216, 107, 0.35);
+  font-variant-numeric: tabular-nums;
+}
+
+.reason {
+  margin: 10px 0 0;
+  font-size: clamp(15px, 4vw, 17px);
+  font-weight: 700;
+  color: var(--danger);
+  text-shadow: 0 0 12px rgba(255, 90, 90, 0.4);
+}
+
+.big-score {
+  margin: 14px 0 0;
+  font-size: clamp(52px, 16vw, 88px);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 26px rgba(125, 249, 255, 0.55);
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #05010f;
+  background: linear-gradient(90deg, var(--accent2), #ffb3ec);
+  box-shadow: 0 0 16px rgba(255, 95, 210, 0.55);
+  animation: badgePulse 1.6s ease-in-out infinite;
+}
+
+.badge.new-best {
+  /* new-best is shown via .hidden toggling; this class adds the highlight */
+  margin-left: 6px;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 24px;
+  margin: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(238, 242, 255, 0.25);
+  font-size: clamp(15px, 4vw, 17px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.15s var(--ease-out), box-shadow 0.25s, background 0.25s, border-color 0.25s;
+}
+
+.screen-card .btn {
+  margin-top: 12px;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(125, 249, 255, 0.5);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:focus-visible,
+.skin:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  color: #05010f;
+  border-color: transparent;
+  background: linear-gradient(120deg, var(--accent) 0%, #a9c8ff 50%, var(--accent2) 100%);
+  font-weight: 800;
+  box-shadow: 0 0 24px rgba(125, 249, 255, 0.4), 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(120deg, var(--accent) 0%, #a9c8ff 50%, var(--accent2) 100%);
+  box-shadow: 0 0 34px rgba(125, 249, 255, 0.6), 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(238, 242, 255, 0.22);
+}
+
+.sound-btn {
+  font-size: clamp(14px, 3.8vw, 16px);
+  font-weight: 600;
+}
+
+/* ---------- skins ---------- */
+
+.section-title {
+  margin: 22px 0 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.9;
+}
+
+.skins {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.skin {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 56px;
+  padding: 10px 6px;
+  border-radius: 14px;
+  border: 1px solid rgba(238, 242, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.15s var(--ease-out), border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.skin:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.skin:active {
+  transform: scale(0.96);
+}
+
+.skin-dot {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.25),
+    0 0 12px currentColor;
+  color: rgba(255, 255, 255, 0.6);
+  flex: 0 0 auto;
+}
+
+.skin-name {
+  display: block;
+  max-width: 100%;
+  font-size: clamp(11px, 3.1vw, 13px);
+  font-weight: 600;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  color: var(--text);
+}
+
+.skin.selected {
+  border-color: var(--accent);
+  background: rgba(125, 249, 255, 0.1);
+  box-shadow: var(--glow-accent), inset 0 0 14px rgba(125, 249, 255, 0.12);
+}
+
+.skin.selected .skin-name {
+  color: var(--accent);
+}
+
+.skin.locked {
+  opacity: 0.45;
+  filter: grayscale(0.7);
+  cursor: not-allowed;
+}
+
+.skin.locked .skin-name {
+  font-size: clamp(10px, 2.8vw, 12px);
+  color: var(--text-dim);
+}
+
+.skin.locked:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.skin.locked:active {
+  transform: none;
+}
+
+/* ---------- tutorial ---------- */
+
+.tutorial-hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--safe-b) + 12vh);
+  transform: translate(-50%, 12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
+  pointer-events: none;
+  width: max-content;
+  max-width: min(88vw, 360px);
+}
+
+.tutorial-hint.show,
+#tutorial.show .tutorial-hint {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.tutorial-hint p {
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 14px;
+  text-align: center;
+  font-size: clamp(14px, 3.8vw, 16px);
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(10, 6, 30, 0.7);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  text-shadow: 0 0 10px rgba(125, 249, 255, 0.35);
+}
+
+.tap-icon {
+  position: relative;
+  width: clamp(56px, 14vw, 72px);
+  height: clamp(56px, 14vw, 72px);
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: radial-gradient(circle, var(--accent) 0 16%, rgba(125, 249, 255, 0.12) 18% 100%);
+  box-shadow: 0 0 22px rgba(125, 249, 255, 0.45), inset 0 0 14px rgba(125, 249, 255, 0.3);
+}
+
+.tap-icon::before,
+.tap-icon::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  pointer-events: none;
+  animation: tapRing 1.8s ease-out infinite;
+}
+
+.tap-icon::after {
+  animation-delay: 0.9s;
+}
+
+/* ---------- keyframes ---------- */
+
+@keyframes scorePop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.22); }
+  100% { transform: scale(1); }
+}
+
+@keyframes flashPop {
+  0% { opacity: 0; transform: scale(0.4); }
+  15% { opacity: 1; transform: scale(1.15); }
+  25% { opacity: 1; transform: scale(1); }
+  70% { opacity: 1; transform: scale(1) translateY(0); }
+  100% { opacity: 0; transform: scale(1) translateY(-22px); }
+}
+
+@keyframes tapRing {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes chipIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.85); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 95, 210, 0.45); }
+  50% { box-shadow: 0 0 22px rgba(255, 95, 210, 0.9); }
+}
+
+/* ---------- short landscape (phones on their side) ---------- */
+
+@media (max-height: 500px) {
+  .skin-name {
+    white-space: nowrap;
+  }
+
+  .skin-lock {
+    width: 100%;
+    font-size: 11px;
+  }
+
+  /* the satellite sits low on short screens, so show the hint near the top */
+  .tutorial-hint {
+    top: calc(var(--safe-t) + var(--hud-h) + 24px);
+    bottom: auto;
+  }
+
+  .tutorial-hint .tap-icon {
+    display: none;
+  }
+
+  :root {
+    --hud-h: 52px;
+  }
+
+  .hud-score {
+    font-size: clamp(32px, 9vh, 48px);
+  }
+
+  .hud-powerups {
+    top: calc(var(--safe-t) + 10px + var(--hud-h) + 2px);
+  }
+
+  .screen {
+    align-items: center;
+    padding:
+      calc(var(--safe-t) + 8px)
+      calc(var(--safe-r) + 12px)
+      calc(var(--safe-b) + 8px)
+      calc(var(--safe-l) + 12px);
+  }
+
+  .screen-card {
+    max-width: 460px;
+    padding: 12px 18px;
+    border-radius: 18px;
+  }
+
+  .game-title {
+    font-size: clamp(26px, 9vh, 40px);
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    font-size: 13px;
+  }
+
+  .screen-title {
+    font-size: clamp(20px, 7vh, 28px);
+  }
+
+  .stat {
+    margin-top: 6px;
+  }
+
+  .big-score {
+    margin-top: 6px;
+    font-size: clamp(40px, 14vh, 60px);
+  }
+
+  .reason {
+    margin-top: 4px;
+  }
+
+  .section-title {
+    margin: 12px 0 6px;
+  }
+
+  .screen-card .btn {
+    margin-top: 8px;
+    min-height: 48px;
+  }
+
+  .skins {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .skin {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2px 8px;
+    min-height: 48px;
+    padding: 6px 8px;
+  }
+
+  .skin-dot {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tutorial-hint {
+    bottom: calc(var(--safe-b) + 8vh);
+    gap: 8px;
+  }
+
+  .tap-icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ---------- tablets and desktops ---------- */
+
+@media (min-width: 600px) and (min-height: 600px) {
+  .screen-card {
+    padding: 32px 30px;
+  }
+
+  .skins {
+    gap: 10px;
+  }
+
+  .skin {
+    min-height: 74px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hud-score {
+    font-size: 76px;
+  }
+
+  .screen-card {
+    max-width: 440px;
+    padding: 36px 34px;
+  }
+
+  .btn {
+    min-height: 52px;
+  }
+
+  .game-title {
+    font-size: 68px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .hud-score {
+    font-size: 88px;
+  }
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .screen.active,
+  .screen.active .screen-card,
+  .pu,
+  .badge {
+    animation: none !important;
+  }
+
+  .bump {
+    animation: none;
+  }
+
+  /* keep the flash readable without motion: visible while .show, JS removes it after 900ms */
+  .hud-flash.show {
+    animation: none;
+    opacity: 1;
+  }
+
+  .tutorial-hint {
+    transform: translate(-50%, 0);
+  }
+
+  /* static ring instead of a pulse */
+  .tap-icon::before {
+    animation: none;
+    opacity: 0.45;
+    transform: scale(1.3);
+  }
+
+  .tap-icon::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+</style>
+<div id="app">
+    <canvas id="game"></canvas>
+    <div id="hud" class="hud hidden"></div>
+    <div id="screens"></div>
+    <div id="tutorial"></div>
+  </div>
+  <noscript>
+    <p>Для игры «Орбита» нужен JavaScript. Включите его в настройках браузера и обновите страницу.</p>
+  </noscript>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+  // Tunable constants shared by all modules.
+  ORB.CONFIG = {
+    WORLD_W: 420, MIN_VIEW_H: 640, MAX_DPR: 2,
+    LAUNCH_SPEED: 520, MAX_FLY_TIME: 3.2, OFFSCREEN_MARGIN: 40,
+    CAPTURE_PAD: 8, ORBIT_GAP: 26, PLAYER_RADIUS: 7, TRAIL_LEN: 26,
+    CAMERA_LERP: 4, CAMERA_LEAD: 0.2,
+    PERFECT_TIME: 0.75, MAX_COMBO: 5, PLANET_POINTS: 10, STAR_POINTS: 5,
+    MAGNET_TIME: 8, MAGNET_RADIUS: 150, SLOW_TIME: 5, SLOW_FACTOR: 0.55,
+    DEATH_DELAY: 1.0,
+    COLORS: {
+      bg1: '#05010f', bg2: '#140a33', accent: '#7df9ff', accent2: '#ff5fd2',
+      star: '#ffd86b', danger: '#ff5a5a', text: '#eef2ff'
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  ORB.M = {
+    // Clamp v into [a, b].
+    clamp: function (v, a, b) {
+      return Math.min(b, Math.max(a, v));
+    },
+
+    // Linear interpolation from a to b by t.
+    lerp: function (a, b, t) {
+      return a + (b - a) * t;
+    },
+
+    // Squared distance between two points (avoids sqrt).
+    dist2: function (ax, ay, bx, by) {
+      var dx = bx - ax, dy = by - ay;
+      return dx * dx + dy * dy;
+    },
+
+    // Distance between two points.
+    dist: function (ax, ay, bx, by) {
+      return Math.sqrt(this.dist2(ax, ay, bx, by));
+    },
+
+    // Random float in [a, b).
+    rand: function (a, b) {
+      return a + Math.random() * (b - a);
+    },
+
+    // Random integer in [a, b] (inclusive).
+    randInt: function (a, b) {
+      return Math.floor(a + Math.random() * (b - a + 1));
+    },
+
+    // Random element of an array.
+    pick: function (arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    },
+
+    // True with probability p.
+    chance: function (p) {
+      return Math.random() < p;
+    },
+
+    // Angle (radians) from point a to point b.
+    angle: function (ax, ay, bx, by) {
+      return Math.atan2(by - ay, bx - ax);
+    },
+
+    // Normalize an angle to -PI..PI.
+    wrapAngle: function (a) {
+      var TWO_PI = Math.PI * 2;
+      a = a % TWO_PI;
+      if (a > Math.PI) a -= TWO_PI;
+      if (a < -Math.PI) a += TWO_PI;
+      return a;
+    },
+
+    // Ease-out cubic curve, t in 0..1.
+    easeOutCubic: function (t) {
+      var u = 1 - t;
+      return 1 - u * u * u;
+    },
+
+    // CSS hsla() string. h in degrees, s and l in percent, a defaults to 1.
+    hsl: function (h, s, l, a) {
+      if (a === undefined) a = 1;
+      return 'hsla(' + h + ', ' + s + '%, ' + l + '%, ' + a + ')';
+    },
+
+    // True if two circles overlap.
+    circleHit: function (ax, ay, ar, bx, by, br) {
+      var r = ar + br;
+      return this.dist2(ax, ay, bx, by) < r * r;
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var PREFIX = 'orbita.';
+
+  ORB.Storage = {
+    // Read a JSON value; returns def on missing key or any failure.
+    get: function (key, def) {
+      try {
+        var raw = window.localStorage.getItem(PREFIX + key);
+        if (raw === null || raw === undefined) return def;
+        return JSON.parse(raw);
+      } catch (e) {
+        return def;
+      }
+    },
+
+    // Store a value as JSON; silently ignores failures.
+    set: function (key, value) {
+      try {
+        window.localStorage.setItem(PREFIX + key, JSON.stringify(value));
+      } catch (e) {
+        // storage unavailable (private mode, quota, blocked)
+      }
+    },
+
+    // Best score as a finite number, default 0.
+    getBest: function () {
+      var v = this.get('best', 0);
+      return (typeof v === 'number' && isFinite(v)) ? v : 0;
+    },
+
+    setBest: function (n) {
+      this.set('best', n);
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // Translation tables. Keys are shared with every UI module.
+  var STRINGS = {
+    ru: {
+      title: 'ОРБИТА',
+      subtitle: 'Прыгай с орбиты на орбиту',
+      play: 'Играть',
+      resume: 'Продолжить',
+      restart: 'Заново',
+      menu: 'Меню',
+      paused: 'Пауза',
+      gameOver: 'Орбита потеряна',
+      score: 'Счёт',
+      best: 'Рекорд',
+      newBest: 'Новый рекорд!',
+      tapHint: 'Тапни или нажми пробел, чтобы сорваться с орбиты',
+      soundOn: 'Звук: вкл',
+      soundOff: 'Звук: выкл',
+      skins: 'Скины',
+      locked: 'С {n} очков',
+      perfect: 'Идеально!',
+      shield: 'Щит',
+      magnet: 'Магнит',
+      slow: 'Замедление',
+      lostTime: 'Слишком долго в пустоте',
+      lostScreen: 'Улетел за край',
+      lostAsteroid: 'Астероид!',
+      planets: 'Планет'
+    },
+    en: {
+      title: 'ORBITA',
+      subtitle: 'Hop from orbit to orbit',
+      play: 'Play',
+      resume: 'Resume',
+      restart: 'Restart',
+      menu: 'Menu',
+      paused: 'Paused',
+      gameOver: 'Orbit lost',
+      score: 'Score',
+      best: 'Best',
+      newBest: 'New best!',
+      tapHint: 'Tap or press Space to break orbit',
+      soundOn: 'Sound: on',
+      soundOff: 'Sound: off',
+      skins: 'Skins',
+      locked: 'At {n} pts',
+      perfect: 'Perfect!',
+      shield: 'Shield',
+      magnet: 'Magnet',
+      slow: 'Slow',
+      lostTime: 'Lost in the void',
+      lostScreen: 'Flew off',
+      lostAsteroid: 'Asteroid!',
+      planets: 'Planets'
+    }
+  };
+
+  var detected = null;
+
+  function detectLang() {
+    if (detected) return detected;
+    var nav = '';
+    try {
+      nav = (window.navigator && (navigator.language || navigator.userLanguage)) || '';
+    } catch (e) {
+      nav = '';
+    }
+    detected = String(nav).toLowerCase().indexOf('ru') === 0 ? 'ru' : 'en';
+    return detected;
+  }
+
+  ORB.I18N = {
+    // Detected lazily from navigator.language on first access.
+    get lang() {
+      return detectLang();
+    },
+
+    // Returns the localized string for key, replacing {name} with vars.name.
+    // Unknown key returns the key itself.
+    t: function (key, vars) {
+      var table = STRINGS[detectLang()] || STRINGS.en;
+      var s = Object.prototype.hasOwnProperty.call(table, key) ? table[key] : key;
+      if (vars) {
+        s = String(s).replace(/\{(\w+)\}/g, function (m, name) {
+          return Object.prototype.hasOwnProperty.call(vars, name) ? String(vars[name]) : m;
+        });
+      }
+      return s;
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var canvas = null;
+  var callbacks = [];
+
+  function notify() {
+    for (var i = 0; i < callbacks.length; i++) {
+      callbacks[i](ORB.View);
+    }
+  }
+
+  ORB.View = {
+    cssW: 0,
+    cssH: 0,
+    dpr: 1,
+    scale: 1,
+    w: 0,
+    h: 0,
+
+    // Store the canvas, listen for viewport changes, and do the first resize.
+    init: function (c) {
+      canvas = c;
+      var self = this;
+      var onChange = function () { self.resize(); };
+      window.addEventListener('resize', onChange);
+      window.addEventListener('orientationchange', onChange);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', onChange);
+      }
+      this.resize();
+    },
+
+    // Fit the canvas to its parent and recompute the world scale.
+    resize: function () {
+      if (!canvas) return;
+      var parent = canvas.parentElement || canvas;
+      this.cssW = parent.clientWidth || window.innerWidth || 1;
+      this.cssH = parent.clientHeight || window.innerHeight || 1;
+      this.dpr = Math.min(window.devicePixelRatio || 1, ORB.CONFIG.MAX_DPR);
+
+      canvas.width = Math.round(this.cssW * this.dpr);
+      canvas.height = Math.round(this.cssH * this.dpr);
+      canvas.style.width = this.cssW + 'px';
+      canvas.style.height = this.cssH + 'px';
+
+      this.scale = Math.min(this.cssW / ORB.CONFIG.WORLD_W, this.cssH / ORB.CONFIG.MIN_VIEW_H);
+      this.w = this.cssW / this.scale;
+      this.h = this.cssH / this.scale;
+
+      notify();
+    },
+
+    // Register a callback called after every resize.
+    onResize: function (cb) {
+      callbacks.push(cb);
+    },
+
+    // Map world coordinates to device pixels, centred on the camera.
+    worldTransform: function (ctx, camX, camY) {
+      var d = this.dpr * this.scale;
+      ctx.setTransform(
+        d, 0, 0, d,
+        this.dpr * (this.cssW / 2 - camX * this.scale),
+        this.dpr * (this.cssH / 2 - camY * this.scale)
+      );
+    },
+
+    // Map CSS pixels to device pixels (for screen-space drawing).
+    screenTransform: function (ctx) {
+      ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var tapCbs = [];
+  var pauseCbs = [];
+  var unlockBound = false;
+
+  function unlockAudio() {
+    try {
+      if (ORB.Audio && ORB.Audio.unlock) ORB.Audio.unlock();
+    } catch (e) { /* ignore */ }
+  }
+
+  function fire(list) {
+    for (var i = 0; i < list.length; i++) list[i]();
+  }
+
+  ORB.Input = {
+    init: function (canvas) {
+      if (canvas) {
+        canvas.addEventListener('pointerdown', function (e) {
+          e.preventDefault();
+          fire(tapCbs);
+        });
+        canvas.addEventListener('touchstart', function (e) {
+          e.preventDefault();
+        }, { passive: false });
+        canvas.addEventListener('touchmove', function (e) {
+          e.preventDefault();
+        }, { passive: false });
+        canvas.addEventListener('contextmenu', function (e) {
+          e.preventDefault();
+        });
+      }
+
+      window.addEventListener('keydown', function (e) {
+        unlockAudio();
+
+        var code = e.code;
+        var isTap = code === 'Space' || code === 'Enter' ||
+                    code === 'ArrowUp' || code === 'KeyW';
+        var isPause = code === 'Escape' || code === 'KeyP';
+
+        if (isTap) {
+          if (e.repeat) return;
+          var active = document.activeElement;
+          // Let focused buttons handle Enter/Space natively.
+          if (active && active.tagName === 'BUTTON') return;
+          if (code === 'Space' || code === 'ArrowUp') e.preventDefault();
+          fire(tapCbs);
+        } else if (isPause) {
+          if (e.repeat) return;
+          fire(pauseCbs);
+        }
+      });
+
+      // Any user gesture unlocks audio.
+      if (!unlockBound) {
+        unlockBound = true;
+        document.addEventListener('pointerdown', unlockAudio, true);
+      }
+    },
+
+    onTap: function (cb) {
+      if (typeof cb === 'function') tapCbs.push(cb);
+    },
+
+    onPause: function (cb) {
+      if (typeof cb === 'function') pauseCbs.push(cb);
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var ctx = null;      // AudioContext, created lazily
+  var master = null;   // master gain (~0.35)
+  var noiseBuf = null; // 1 s of white noise, reused for whooshes and crashes
+  var muted = null;    // read from storage on first isMuted() call
+
+  // Create the AudioContext on first use. Returns null if WebAudio is missing.
+  function ensureCtx() {
+    if (ctx) return ctx;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      var c = new AC();
+      var m = c.createGain();
+      m.gain.value = 0.35;
+      m.connect(c.destination);
+      var buf = c.createBuffer(1, c.sampleRate, c.sampleRate);
+      var d = buf.getChannelData(0);
+      for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      ctx = c;
+      master = m;
+      noiseBuf = buf;
+    } catch (e) {
+      ctx = null;
+    }
+    return ctx;
+  }
+
+  // One oscillator note with a quick exponential envelope. f1 is an optional sweep target.
+  function tone(type, f0, f1, t, dur, vol) {
+    var o = ctx.createOscillator();
+    var g = ctx.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(f0, t);
+    if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g);
+    g.connect(master);
+    o.start(t);
+    o.stop(t + dur + 0.02);
+  }
+
+  // Filtered noise burst (whoosh, crash). Filter frequency can sweep from f0 to f1.
+  function noise(t, dur, vol, filterType, f0, f1) {
+    var s = ctx.createBufferSource();
+    var flt = ctx.createBiquadFilter();
+    var g = ctx.createGain();
+    s.buffer = noiseBuf;
+    flt.type = filterType;
+    flt.frequency.setValueAtTime(f0, t);
+    if (f1) flt.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(flt);
+    flt.connect(g);
+    g.connect(master);
+    s.start(t);
+    s.stop(t + dur + 0.02);
+  }
+
+  // Each sound schedules its notes starting at time t (AudioContext seconds).
+  var SOUNDS = {
+    launch: function (t) {
+      noise(t, 0.35, 0.25, 'bandpass', 300, 2400);
+      tone('sine', 180, 900, t, 0.3, 0.18);
+    },
+    capture: function (t) {
+      tone('sine', 784, null, t, 0.45, 0.22);
+      tone('sine', 1568, null, t, 0.3, 0.05);
+    },
+    perfect: function (t) {
+      tone('triangle', 1046, null, t, 0.18, 0.2);
+      tone('triangle', 1568, null, t + 0.09, 0.4, 0.2);
+    },
+    star: function (t) {
+      tone('sine', 1800, 2600, t, 0.14, 0.16);
+    },
+    power: function (t) {
+      var notes = [523, 659, 784, 1046];
+      for (var i = 0; i < notes.length; i++) {
+        tone('square', notes[i], null, t + i * 0.06, 0.12, 0.06);
+      }
+    },
+    shield: function (t) {
+      tone('square', 330, null, t, 0.5, 0.1);
+      tone('square', 330 * 1.41, null, t, 0.5, 0.06); // inharmonic pair = metallic
+      tone('sine', 2200, null, t, 0.2, 0.05);
+      noise(t, 0.08, 0.12, 'highpass', 4000, null);
+    },
+    death: function (t) {
+      tone('sawtooth', 440, 90, t, 0.6, 0.14);
+      noise(t, 0.5, 0.2, 'lowpass', 1200, 200);
+    },
+    click: function (t) {
+      tone('square', 1800, null, t, 0.02, 0.05);
+    }
+  };
+
+  ORB.Audio = {
+    // Create or resume the context. Safe to call often (e.g. on every user gesture).
+    unlock: function () {
+      try {
+        var c = ensureCtx();
+        if (c && c.state === 'suspended') {
+          var p = c.resume();
+          if (p && p.catch) p.catch(function () {});
+        }
+      } catch (e) { /* no audio, ignore */ }
+    },
+
+    play: function (name) {
+      try {
+        if (!SOUNDS[name] || ORB.Audio.isMuted()) return;
+        if (!ensureCtx()) return;
+        if (ctx.state === 'suspended') {
+          var p = ctx.resume();
+          if (p && p.catch) p.catch(function () {});
+        }
+        SOUNDS[name](ctx.currentTime + 0.01);
+      } catch (e) { /* silent no-op */ }
+    },
+
+    setMuted: function (b) {
+      muted = !!b;
+      try { ORB.Storage.set('muted', muted); } catch (e) { /* ignore */ }
+    },
+
+    isMuted: function () {
+      if (muted === null) {
+        try { muted = !!ORB.Storage.get('muted', false); } catch (e) { muted = false; }
+      }
+      return muted;
+    },
+
+    // Flip mute state and return the new value.
+    toggle: function () {
+      ORB.Audio.setMuted(!ORB.Audio.isMuted());
+      return ORB.Audio.isMuted();
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // Vibration feedback. Persisted user toggle under the 'haptics' key (default on).
+  var KEY = 'haptics';
+
+  ORB.Haptics = {
+    // Vibrate with a pattern (ms number or array). Silent no-op when unsupported or disabled.
+    buzz: function (pattern) {
+      try {
+        if (!this.isEnabled()) return;
+        if (typeof navigator === 'undefined' || typeof navigator.vibrate !== 'function') return;
+        navigator.vibrate(pattern);
+      } catch (e) {
+        // Vibration is optional; ignore any failure.
+      }
+    },
+
+    setEnabled: function (b) {
+      try {
+        ORB.Storage.set(KEY, !!b);
+      } catch (e) {
+        // Storage failures are ignored; the setting just won't persist.
+      }
+    },
+
+    isEnabled: function () {
+      try {
+        return ORB.Storage.get(KEY, true) !== false;
+      } catch (e) {
+        return true;
+      }
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // Vertical-following camera with a decaying screen shake.
+  ORB.Camera = {
+    x: 0,
+    y: 0,
+    shakeT: 0,     // seconds of shake left
+    shakeMag: 0,   // max shake offset in world px
+    shakeDur: 0,   // total shake duration (for decay)
+
+    reset: function (x, y) {
+      this.x = x;
+      this.y = y;
+      this.shakeT = 0;
+      this.shakeMag = 0;
+      this.shakeDur = 0;
+    },
+
+    update: function (dt, targetY) {
+      var C = ORB.CONFIG;
+      // x is fixed to the world's center column; y eases toward the target.
+      this.x = C.WORLD_W / 2;
+      this.y += (targetY - this.y) * Math.min(1, C.CAMERA_LERP * dt);
+      if (this.shakeT > 0) {
+        this.shakeT = Math.max(0, this.shakeT - dt);
+      }
+    },
+
+    shake: function (mag, dur) {
+      this.shakeMag = mag;
+      this.shakeT = dur;
+      this.shakeDur = Math.max(dur, 0.0001);
+    },
+
+    // Current shake strength in 0..1 (linear decay).
+    _strength: function () {
+      if (this.shakeT <= 0) return 0;
+      return this.shakeT / this.shakeDur;
+    },
+
+    getX: function () {
+      if (this.shakeT <= 0) return this.x;
+      var s = this._strength() * this.shakeMag;
+      return this.x + ORB.M.rand(-1, 1) * s;
+    },
+
+    getY: function () {
+      if (this.shakeT <= 0) return this.y;
+      var s = this._strength() * this.shakeMag;
+      return this.y + ORB.M.rand(-1, 1) * s;
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // Linear ramp from `from` to `to` over planets [start, end], clamped outside.
+  function ramp(p, from, to, start, end) {
+    var t = Math.min(1, Math.max(0, (p - start) / (end - start)));
+    return from + (to - from) * t;
+  }
+
+  ORB.Difficulty = {
+    // planets = number of planets visited so far
+    get: function (planets) {
+      var p = Math.max(0, planets || 0);
+      return {
+        angularSpeed: ramp(p, 1.7, 3.2, 0, 60),
+        gapMin: ramp(p, 150, 200, 0, 60),
+        gapMax: ramp(p, 220, 300, 0, 60),
+        radiusMin: 18,
+        radiusMax: ramp(p, 34, 24, 0, 60),
+        moveChance: p < 8 ? 0 : ramp(p, 0, 0.6, 8, 48),
+        moveAmpMin: 25,
+        moveAmpMax: ramp(p, 30, 90, 0, 60),
+        asteroidRate: p < 4 ? 0 : ramp(p, 0.15, 0.9, 4, 60),
+        starChance: 0.75,
+        powerChance: 0.14
+      };
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var nextId = 0;
+
+  function newPlanet(x, y, radius) {
+    nextId++;
+    return {
+      id: nextId,
+      x: x,
+      y: y,
+      baseX: x,
+      radius: radius,
+      orbitRadius: radius + ORB.CONFIG.ORBIT_GAP,
+      hue: 0,
+      angularSpeed: 0,
+      moveAmp: 0,
+      moveSpeed: 0,
+      movePhase: 0,
+      visited: false,
+      ringed: false
+    };
+  }
+
+  ORB.Planets = {
+    list: [],
+
+    // Clears the list and creates the first (static, visited) planet.
+    reset: function () {
+      var M = ORB.M;
+      var C = ORB.CONFIG;
+      nextId = 0;
+      this.list = [];
+      var p = newPlanet(C.WORLD_W / 2, 0, 30);
+      p.hue = M.rand(0, 360);
+      p.angularSpeed = 1.7;
+      p.visited = true;
+      this.list.push(p);
+    },
+
+    // Creates planets above the highest one until it reaches topY.
+    // Returns the array of newly created planets.
+    ensure: function (topY, diff) {
+      var M = ORB.M;
+      var C = ORB.CONFIG;
+      var created = [];
+
+      while (this.list.length && this.highest().y > topY) {
+        var prev = this.highest();
+        var y = prev.y - M.rand(diff.gapMin, diff.gapMax);
+        var radius = M.rand(diff.radiusMin, diff.radiusMax);
+        var p = newPlanet(0, y, radius);
+        var or = p.orbitRadius;
+
+        // Pick x, retrying so the planet is not too close to the previous one.
+        var minX = or + 12;
+        var maxX = C.WORLD_W - or - 12;
+        var x = M.rand(minX, maxX);
+        for (var i = 0; i < 10; i++) {
+          var cand = M.rand(minX, maxX);
+          var far = M.dist(cand, y, prev.x, prev.y) >= prev.orbitRadius + or + 50;
+          var wide = Math.abs(cand - prev.x) >= 40;
+          x = cand;
+          if (far && wide) break;
+        }
+        p.baseX = x;
+        p.x = x;
+
+        // Moving planets oscillate horizontally, kept inside the world width.
+        if (M.chance(diff.moveChance)) {
+          var maxAmp = Math.max(0, Math.min(x - or, C.WORLD_W - x - or));
+          p.moveAmp = Math.min(M.rand(diff.moveAmpMin, diff.moveAmpMax), maxAmp);
+          p.moveSpeed = M.rand(0.6, 1.4);
+          p.movePhase = M.rand(0, Math.PI * 2);
+          p.x = p.baseX + Math.sin(p.movePhase) * p.moveAmp;
+        }
+
+        p.angularSpeed = diff.angularSpeed * M.rand(0.9, 1.1);
+        p.hue = M.rand(0, 360);
+        p.ringed = M.chance(0.3);
+        p.visited = false;
+
+        this.list.push(p);
+        created.push(p);
+      }
+      return created;
+    },
+
+    // Advances the horizontal motion of moving planets.
+    update: function (dt) {
+      var M = ORB.M;
+      for (var i = 0; i < this.list.length; i++) {
+        var p = this.list[i];
+        if (p.moveAmp > 0) {
+          p.movePhase += p.moveSpeed * dt;
+          p.x = p.baseX + Math.sin(p.movePhase) * p.moveAmp;
+        }
+      }
+    },
+
+    // Removes planets that are fully below bottomY (in place, keeps array identity).
+    prune: function (bottomY) {
+      var keep = 0;
+      for (var i = 0; i < this.list.length; i++) {
+        var p = this.list[i];
+        if (!(p.y - p.orbitRadius > bottomY)) {
+          this.list[keep++] = p;
+        }
+      }
+      this.list.length = keep;
+    },
+
+    // First planet (not exclude) whose capture zone contains (x, y), or null.
+    findCapture: function (x, y, exclude) {
+      var M = ORB.M;
+      var C = ORB.CONFIG;
+      for (var i = 0; i < this.list.length; i++) {
+        var p = this.list[i];
+        if (p === exclude) continue;
+        if (M.dist(x, y, p.x, p.y) < p.orbitRadius + C.CAPTURE_PAD) return p;
+      }
+      return null;
+    },
+
+    // Most recently created (highest) planet.
+    highest: function () {
+      return this.list[this.list.length - 1];
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var STAR_R = 9;
+  var MAGNET_SPEED = 420;
+  var ORBIT_MARGIN = 6;
+
+  // true if a circle at (x, y) with radius r touches any planet orbit
+  function insideOrbit(x, y, r) {
+    var list = (ORB.Planets && ORB.Planets.list) || [];
+    for (var i = 0; i < list.length; i++) {
+      var p = list[i];
+      if (ORB.M.dist(x, y, p.x, p.y) < p.orbitRadius + r + ORBIT_MARGIN) return true;
+    }
+    return false;
+  }
+
+  ORB.Stars = {
+    list: [],
+
+    reset: function () {
+      ORB.Stars.list = [];
+    },
+
+    // place 1-3 stars on the segment between planets a and b
+    spawnBetween: function (a, b, diff) {
+      var M = ORB.M;
+      if (!M.chance(diff.starChance)) return;
+      var count = M.randInt(1, 3);
+      for (var i = 0; i < count; i++) {
+        // a few tries to find a spot outside all orbits
+        for (var tries = 0; tries < 8; tries++) {
+          var t = M.rand(0.35, 0.65);
+          var x = M.lerp(a.x, b.x, t) + M.rand(-30, 30);
+          var y = M.lerp(a.y, b.y, t);
+          if (!insideOrbit(x, y, STAR_R)) {
+            ORB.Stars.list.push({ x: x, y: y, r: STAR_R, phase: M.rand(0, Math.PI * 2), collected: false });
+            break;
+          }
+        }
+      }
+    },
+
+    // animate, magnet pull, collect; returns number collected this frame
+    update: function (dt, player) {
+      var M = ORB.M;
+      var C = ORB.CONFIG;
+      var list = ORB.Stars.list;
+      var magnet = player.magnetTime > 0;
+      var collected = 0;
+
+      for (var i = 0; i < list.length; i++) {
+        var s = list[i];
+        s.phase += dt * 3;
+
+        if (magnet) {
+          var d = M.dist(s.x, s.y, player.x, player.y);
+          if (d < C.MAGNET_RADIUS && d > 0) {
+            var step = Math.min(d, MAGNET_SPEED * dt);
+            s.x += (player.x - s.x) / d * step;
+            s.y += (player.y - s.y) / d * step;
+          }
+        }
+
+        if (M.circleHit(player.x, player.y, C.PLAYER_RADIUS, s.x, s.y, s.r)) {
+          s.collected = true;
+        }
+      }
+
+      // remove collected stars in place
+      for (var j = list.length - 1; j >= 0; j--) {
+        if (list[j].collected) {
+          list.splice(j, 1);
+          collected++;
+        }
+      }
+      return collected;
+    },
+
+    // remove stars below the visible/bottom limit
+    prune: function (bottomY) {
+      var list = ORB.Stars.list;
+      for (var i = list.length - 1; i >= 0; i--) {
+        if (list[i].y > bottomY) list.splice(i, 1);
+      }
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var MAX_ALIVE = 6;
+  var lastViewW = 0; // visible world width from the latest maybeSpawn
+
+  var A = {
+    list: [],
+
+    reset: function () {
+      A.list = [];
+      lastViewW = 0;
+    },
+
+    // Spawn one asteroid just outside the left or right edge of the view.
+    maybeSpawn: function (dt, camY, viewW, viewH, diff) {
+      var C = ORB.CONFIG, M = ORB.M;
+      lastViewW = viewW;
+      if (A.list.length >= MAX_ALIVE) return;
+      if (!M.chance(diff.asteroidRate * dt)) return;
+
+      var fromLeft = M.chance(0.5);
+      var side = fromLeft ? -1 : 1;
+      var verts = [];
+      var n = M.randInt(9, 12);
+      for (var i = 0; i < n; i++) verts.push(M.rand(0.7, 1.2));
+
+      A.list.push({
+        x: C.WORLD_W / 2 + side * (viewW / 2 + 40),
+        y: M.rand(camY - viewH * 0.45, camY + viewH * 0.15),
+        vx: -side * M.rand(50, 120), // moving inward
+        vy: M.rand(-20, 20),
+        r: M.rand(10, 20),
+        rot: M.rand(0, Math.PI * 2),
+        rotSpeed: M.rand(-1.5, 1.5),
+        verts: verts
+      });
+    },
+
+    // Move and rotate; remove far-outside asteroids. Returns the asteroid
+    // hitting the player, or null.
+    update: function (dt, player) {
+      var C = ORB.CONFIG, M = ORB.M;
+      var hit = null;
+      var centerX = C.WORLD_W / 2;
+      var keep = [];
+
+      for (var i = 0; i < A.list.length; i++) {
+        var a = A.list[i];
+        a.x += a.vx * dt;
+        a.y += a.vy * dt;
+        a.rot += a.rotSpeed * dt;
+
+        if (!hit && M.circleHit(player.x, player.y, C.PLAYER_RADIUS,
+                                a.x, a.y, a.r * 0.85)) {
+          hit = a;
+        }
+        if (Math.abs(a.x - centerX) <= lastViewW) keep.push(a);
+      }
+      A.list = keep;
+      return hit;
+    },
+
+    destroy: function (a) {
+      var idx = A.list.indexOf(a);
+      if (idx !== -1) A.list.splice(idx, 1);
+    },
+
+    prune: function (bottomY) {
+      A.list = A.list.filter(function (a) {
+        return a.y - a.r <= bottomY;
+      });
+    }
+  };
+
+  ORB.Asteroids = A;
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var KINDS = ['shield', 'magnet', 'slow'];
+  var RADIUS = 12;
+  var MAGNET_SPEED = 420;
+
+  // True if (x, y) is outside every planet orbit (with a small margin).
+  function fits(x, y) {
+    var list = ORB.Planets.list;
+    for (var i = 0; i < list.length; i++) {
+      var p = list[i];
+      if (ORB.M.dist(x, y, p.x, p.y) < p.orbitRadius + RADIUS + 16) return false;
+    }
+    return true;
+  }
+
+  ORB.Powerups = {
+    list: [],
+
+    reset: function () {
+      ORB.Powerups.list = [];
+    },
+
+    // With diff.powerChance, place one power-up near the midpoint of a and b.
+    maybeSpawnBetween: function (a, b, diff) {
+      if (!a || !b || !ORB.M.chance(diff.powerChance)) return;
+      var mx = (a.x + b.x) / 2;
+      var my = (a.y + b.y) / 2;
+      for (var tries = 0; tries < 10; tries++) {
+        var x = mx + ORB.M.rand(-40, 40);
+        var y = my + ORB.M.rand(-40, 40);
+        if (fits(x, y)) {
+          ORB.Powerups.list.push({
+            x: x, y: y, r: RADIUS,
+            kind: ORB.M.pick(KINDS),
+            phase: ORB.M.rand(0, Math.PI * 2),
+            collected: false
+          });
+          return;
+        }
+      }
+    },
+
+    // Animate, magnet-pull, collect. Returns array of collected kinds this frame.
+    update: function (dt, player) {
+      var C = ORB.CONFIG;
+      var magnet = !!(player && player.magnetTime > 0);
+      var kinds = [];
+      var kept = [];
+      var list = ORB.Powerups.list;
+
+      for (var i = 0; i < list.length; i++) {
+        var p = list[i];
+        p.phase += dt * 3;
+
+        if (magnet) {
+          var d = ORB.M.dist(p.x, p.y, player.x, player.y);
+          if (d < C.MAGNET_RADIUS && d > 0) {
+            var step = Math.min(d, MAGNET_SPEED * dt);
+            p.x += (player.x - p.x) / d * step;
+            p.y += (player.y - p.y) / d * step;
+          }
+        }
+
+        if (player && ORB.M.circleHit(player.x, player.y, C.PLAYER_RADIUS, p.x, p.y, p.r)) {
+          p.collected = true;
+          kinds.push(p.kind);
+        } else {
+          kept.push(p);
+        }
+      }
+
+      ORB.Powerups.list = kept;
+      return kinds;
+    },
+
+    // Remove power-ups below the bottom edge of the view.
+    prune: function (bottomY) {
+      ORB.Powerups.list = ORB.Powerups.list.filter(function (p) {
+        return p.y <= bottomY;
+      });
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // Satellite: orbits a planet, or flies straight along the tangent after launch.
+  ORB.Player = {
+    // New player orbiting `planet`, starting at the bottom of the orbit.
+    create: function (planet) {
+      var ang = Math.PI * 0.5;
+      var d = planet.orbitRadius;
+      return {
+        x: planet.x + Math.cos(ang) * d,
+        y: planet.y + Math.sin(ang) * d,
+        vx: 0,
+        vy: 0,
+        state: 'orbit',
+        planet: planet,
+        fromPlanet: null,
+        angle: ang,
+        dir: 1,
+        orbitDist: d,
+        flyTime: 0,
+        trail: [],
+        shield: false,
+        magnetTime: 0,
+        slowTime: 0
+      };
+    },
+
+    update: function (p, dt) {
+      var C = ORB.CONFIG;
+      if (p.state === 'orbit' && p.planet) {
+        var pl = p.planet;
+        p.angle += p.dir * pl.angularSpeed * dt;
+        // Ease the orbit radius toward the planet's current orbit radius.
+        p.orbitDist += (pl.orbitRadius - p.orbitDist) * Math.min(1, 8 * dt);
+        p.x = pl.x + Math.cos(p.angle) * p.orbitDist;
+        p.y = pl.y + Math.sin(p.angle) * p.orbitDist;
+        // Tangential velocity, used for rendering.
+        var t = this.tangent(p);
+        var speed = pl.angularSpeed * p.orbitDist;
+        p.vx = t.x * speed;
+        p.vy = t.y * speed;
+      } else if (p.state === 'fly') {
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.flyTime += dt;
+      }
+
+      p.trail.push({ x: p.x, y: p.y });
+      if (p.trail.length > C.TRAIL_LEN) {
+        p.trail.splice(0, p.trail.length - C.TRAIL_LEN);
+      }
+    },
+
+    // Break orbit: fly straight along the current tangent.
+    launch: function (p) {
+      if (p.state !== 'orbit' || !p.planet) return;
+      var t = this.tangent(p);
+      var s = ORB.CONFIG.LAUNCH_SPEED;
+      p.vx = t.x * s;
+      p.vy = t.y * s;
+      p.fromPlanet = p.planet;
+      p.planet = null;
+      p.state = 'fly';
+      p.flyTime = 0;
+    },
+
+    // Start orbiting `planet` from the current position and velocity.
+    capture: function (p, planet) {
+      var rx = p.x - planet.x;
+      var ry = p.y - planet.y;
+      p.angle = Math.atan2(ry, rx);
+      p.orbitDist = Math.sqrt(rx * rx + ry * ry);
+      var cross = rx * p.vy - ry * p.vx;
+      p.dir = cross >= 0 ? 1 : -1;
+      p.state = 'orbit';
+      p.planet = planet;
+      p.vx = 0;
+      p.vy = 0;
+    },
+
+    // Unit tangent of the current orbit (direction of motion).
+    tangent: function (p) {
+      return {
+        x: -Math.sin(p.angle) * p.dir,
+        y: Math.cos(p.angle) * p.dir
+      };
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // Scoring: planets and stars are worth points multiplied by the current combo.
+  ORB.Score = {
+    value: 0,
+    combo: 1,
+    planets: 0,
+    stars: 0,
+
+    reset: function () {
+      this.value = 0;
+      this.combo = 1;
+      this.planets = 0;
+      this.stars = 0;
+    },
+
+    // Called on capture. Quick flights (under PERFECT_TIME) build the combo, slow ones reset it.
+    addPlanet: function (flyTime) {
+      var C = ORB.CONFIG;
+      var perfect = flyTime < C.PERFECT_TIME;
+      if (perfect) {
+        this.combo = Math.min(this.combo + 1, C.MAX_COMBO);
+      } else {
+        this.combo = 1;
+      }
+      this.planets++;
+      var points = C.PLANET_POINTS * this.combo;
+      this.value += points;
+      return { points: points, combo: this.combo, perfect: perfect };
+    },
+
+    // Called when a star is collected. Returns the points awarded.
+    addStar: function () {
+      var points = ORB.CONFIG.STAR_POINTS * this.combo;
+      this.stars++;
+      this.value += points;
+      return points;
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var MAX = 500;
+  var list = [];
+
+  function push(p) {
+    if (list.length >= MAX) list.shift(); // drop oldest when over the cap
+    list.push(p);
+  }
+
+  ORB.Particles = {
+    reset: function () {
+      list.length = 0;
+    },
+
+    // Burst of dots flying in random directions with slight drag.
+    burst: function (x, y, color, count, speed, life) {
+      count = count || 16;
+      speed = speed || 160;
+      life = life || 0.6;
+      for (var i = 0; i < count; i++) {
+        var a = Math.random() * Math.PI * 2;
+        var s = speed * (0.4 + Math.random() * 0.6);
+        push({
+          type: 'dot',
+          x: x,
+          y: y,
+          vx: Math.cos(a) * s,
+          vy: Math.sin(a) * s,
+          life: life,
+          maxLife: life,
+          size: 1.5 + Math.random() * 2,
+          color: color
+        });
+      }
+    },
+
+    // Expanding, fading circle.
+    ring: function (x, y, color, radius) {
+      var r0 = radius || 10;
+      push({
+        type: 'ring',
+        x: x,
+        y: y,
+        vx: 0,
+        vy: 0,
+        life: 0.5,
+        maxLife: 0.5,
+        r0: r0,
+        r1: r0 + 60,
+        color: color
+      });
+    },
+
+    update: function (dt) {
+      for (var i = list.length - 1; i >= 0; i--) {
+        var p = list[i];
+        p.life -= dt;
+        if (p.life <= 0) {
+          list.splice(i, 1);
+          continue;
+        }
+        if (p.type === 'dot') {
+          var drag = Math.max(0, 1 - 2.5 * dt);
+          p.vx *= drag;
+          p.vy *= drag;
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+        }
+      }
+    },
+
+    draw: function (ctx) {
+      if (!list.length) return;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      for (var i = 0; i < list.length; i++) {
+        var p = list[i];
+        var t = 1 - p.life / p.maxLife; // 0 at birth, 1 at death
+        ctx.globalAlpha = Math.max(0, 1 - t);
+        ctx.fillStyle = p.color;
+        ctx.strokeStyle = p.color;
+        if (p.type === 'dot') {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * (1 - 0.5 * t), 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r0 + (p.r1 - p.r0) * t, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+      ctx.restore();
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // Satellite color skins, unlocked by best score.
+  var list = [
+    { id: 'comet', name: { ru: 'Комета', en: 'Comet' }, color: '#7df9ff', trail: '#7df9ff', unlock: 0 },
+    { id: 'rose', name: { ru: 'Роза', en: 'Rose' }, color: '#ff5fd2', trail: '#ff5fd2', unlock: 60 },
+    { id: 'sun', name: { ru: 'Солнце', en: 'Sun' }, color: '#ffd86b', trail: '#ffd86b', unlock: 150 },
+    { id: 'mint', name: { ru: 'Мята', en: 'Mint' }, color: '#7dffb0', trail: '#7dffb0', unlock: 300 },
+    { id: 'amethyst', name: { ru: 'Аметист', en: 'Amethyst' }, color: '#b58cff', trail: '#b58cff', unlock: 600 },
+    { id: 'ghost', name: { ru: 'Призрак', en: 'Ghost' }, color: '#eef2ff', trail: '#eef2ff', unlock: 1000 }
+  ];
+
+  function store() {
+    return ORB.Storage;
+  }
+
+  function findById(id) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
+  }
+
+  function isUnlocked(skin, best) {
+    return !!skin && (best || 0) >= skin.unlock;
+  }
+
+  function currentId() {
+    try {
+      var id = store().get('skin', list[0].id);
+      return findById(id) ? id : list[0].id;
+    } catch (e) {
+      return list[0].id;
+    }
+  }
+
+  function current() {
+    var skin = findById(currentId()) || list[0];
+    var best = 0;
+    try { best = store().getBest(); } catch (e) { best = 0; }
+    return isUnlocked(skin, best) ? skin : list[0];
+  }
+
+  function select(id) {
+    var skin = findById(id);
+    var best = 0;
+    try { best = store().getBest(); } catch (e) { best = 0; }
+    if (!skin || !isUnlocked(skin, best)) return false;
+    try { store().set('skin', id); } catch (e) { /* storage unavailable */ }
+    return true;
+  }
+
+  function name(skin) {
+    var lang = ORB.I18N && ORB.I18N.lang;
+    if (lang !== 'ru' && lang !== 'en') {
+      lang = ((navigator.language || '').indexOf('ru') === 0) ? 'ru' : 'en';
+    }
+    return skin.name[lang] || skin.name.en;
+  }
+
+  ORB.Skins = {
+    list: list,
+    isUnlocked: isUnlocked,
+    currentId: currentId,
+    current: current,
+    select: select,
+    name: name
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // Parallax layers: [count, scroll factor, max star size, base alpha]
+  var LAYERS = [
+    { count: 60, factor: 0.05, size: 1.0, alpha: 0.45 },
+    { count: 40, factor: 0.15, size: 1.4, alpha: 0.65 },
+    { count: 25, factor: 0.3, size: 2.0, alpha: 0.9 }
+  ];
+
+  // Flat Float32Array per layer, 4 floats per star: nx, ny, size, phase.
+  var layerData = null;
+
+  function wrap(v, m) {
+    return ((v % m) + m) % m;
+  }
+
+  function wrapHue(h) {
+    return wrap(h, 360);
+  }
+
+  ORB.Background = {
+    init: function () {
+      layerData = LAYERS.map(function (L) {
+        var arr = new Float32Array(L.count * 4);
+        for (var i = 0; i < L.count; i++) {
+          arr[i * 4] = Math.random();          // normalized x
+          arr[i * 4 + 1] = Math.random();      // normalized y
+          arr[i * 4 + 2] = L.size * (0.5 + Math.random() * 0.5);
+          arr[i * 4 + 3] = Math.random() * Math.PI * 2; // twinkle phase
+        }
+        return arr;
+      });
+    },
+
+    // Caller has already set ORB.View.screenTransform(ctx).
+    draw: function (ctx, camY, time) {
+      if (!layerData) this.init();
+      var View = ORB.View;
+      var C = ORB.CONFIG.COLORS;
+      var M = ORB.M;
+      var w = View.cssW;
+      var h = View.cssH;
+
+      // Base vertical gradient.
+      var g = ctx.createLinearGradient(0, 0, 0, h);
+      g.addColorStop(0, C.bg1);
+      g.addColorStop(1, C.bg2);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+
+      // Soft nebula blobs; hue drifts slowly with altitude.
+      var hue = wrapHue(280 + camY * 0.02);
+      var hue2 = wrapHue(hue + 60);
+      var r = Math.max(w, h) * 0.6;
+      var cy1 = h * 0.35 + wrap(camY * 0.03, h * 0.5);
+      var cy2 = h * 0.75 + wrap(camY * 0.02 + h * 0.25, h * 0.5);
+
+      var n1 = ctx.createRadialGradient(w * 0.3, cy1, 0, w * 0.3, cy1, r);
+      n1.addColorStop(0, M.hsl(hue, 70, 45, 0.16));
+      n1.addColorStop(1, M.hsl(hue, 70, 45, 0));
+      ctx.fillStyle = n1;
+      ctx.fillRect(0, 0, w, h);
+
+      var n2 = ctx.createRadialGradient(w * 0.8, cy2, 0, w * 0.8, cy2, r * 0.8);
+      n2.addColorStop(0, M.hsl(hue2, 80, 50, 0.12));
+      n2.addColorStop(1, M.hsl(hue2, 80, 50, 0));
+      ctx.fillStyle = n2;
+      ctx.fillRect(0, 0, w, h);
+
+      // Star layers: scrolled by camY * factor, wrapped vertically, twinkling.
+      ctx.fillStyle = C.text;
+      for (var li = 0; li < LAYERS.length; li++) {
+        var L = LAYERS[li];
+        var data = layerData[li];
+        var off = camY * L.factor;
+        for (var i = 0; i < data.length; i += 4) {
+          var x = data[i] * w;
+          var y = wrap(data[i + 1] * h - off, h);
+          var s = data[i + 2];
+          var tw = 0.6 + 0.4 * Math.sin(time * (1.5 + li) + data[i + 3]);
+          ctx.globalAlpha = L.alpha * tw;
+          ctx.fillRect(x - s * 0.5, y - s * 0.5, s, s);
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var TAU = Math.PI * 2;
+
+  // Deterministic PRNG (xorshift32) so each planet keeps the same details every frame.
+  function seeded(seed) {
+    var s = (seed >>> 0) || 1;
+    return function () {
+      s ^= s << 13; s ^= s >>> 17; s ^= s << 5;
+      s >>>= 0;
+      return s / 4294967296;
+    };
+  }
+
+  function H(h) { return ((h % 360) + 360) % 360; }
+
+  // Shorthand for ORB.M.hsl with the hue wrapped into 0..360.
+  function col(M, h, s, l, a) { return M.hsl(H(h), s, l, a); }
+
+  // Off-screen planets are skipped. Uses the camera and view if they exist.
+  function visible(p, camY, limit) {
+    return Math.abs(p.y - camY) - p.orbitRadius <= limit;
+  }
+
+  function drawOrbit(ctx, M, p, current, cfg) {
+    ctx.save();
+    if (p === current) {
+      ctx.strokeStyle = col(M, p.hue, 90, 75, 0.45);
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([]);
+    } else {
+      // Unvisited orbits are the targets, so keep them clearly visible.
+      ctx.strokeStyle = col(M, p.hue, 70, 72, p.visited ? 0.16 : 0.5);
+      ctx.lineWidth = p.visited ? 1 : 1.5;
+      ctx.setLineDash([4, 6]);
+    }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.orbitRadius, 0, TAU);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  // Ring: back half drawn before the body, front half after it.
+  function drawRing(ctx, M, p, back) {
+    var r = p.radius, rx = r * 1.9, ry = r * 0.42;
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(-0.28);
+    ctx.lineCap = 'butt';
+    var a0 = back ? Math.PI : 0, a1 = back ? TAU : Math.PI;
+
+    ctx.beginPath();
+    ctx.ellipse(0, 0, rx, ry, 0, a0, a1);
+    ctx.strokeStyle = col(M, p.hue + 30, 80, 80, 0.5);
+    ctx.lineWidth = Math.max(1.5, r * 0.14);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.ellipse(0, 0, rx * 0.8, ry * 0.8, 0, a0, a1);
+    ctx.strokeStyle = col(M, p.hue + 30, 90, 90, 0.25);
+    ctx.lineWidth = Math.max(0.8, r * 0.05);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawBody(ctx, M, p, time) {
+    var r = p.radius, x = p.x, y = p.y, hue = p.hue;
+    var rnd = seeded(Math.imul((p.id | 0) + 1, 2654435761));
+
+    ctx.save();
+
+    // Soft outer glow.
+    var g = ctx.createRadialGradient(x, y, r * 0.8, x, y, r * 2.6);
+    g.addColorStop(0, col(M, hue, 90, 65, 0.32));
+    g.addColorStop(1, col(M, hue, 90, 65, 0));
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 2.6, 0, TAU);
+    ctx.fill();
+
+    if (p.ringed) drawRing(ctx, M, p, true);
+
+    // Body, lit from the upper left.
+    g = ctx.createRadialGradient(x - r * 0.35, y - r * 0.35, r * 0.05, x, y, r);
+    g.addColorStop(0, col(M, hue, 85, 82, 1));
+    g.addColorStop(0.5, col(M, hue, 65, 52, 1));
+    g.addColorStop(1, col(M, hue + 10, 55, 16, 1));
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, TAU);
+    ctx.fill();
+
+    // Surface details, clipped to the disc.
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, TAU);
+    ctx.clip();
+
+    var bands = 2 + Math.floor(rnd() * 2), i;
+    for (i = 0; i < bands; i++) {
+      var by = y + (rnd() * 2 - 1) * r * 0.65;
+      var bh = r * (0.07 + rnd() * 0.12);
+      var sx = x + Math.sin(time * 0.15 + i * 1.7) * r * 0.08;
+      ctx.fillStyle = col(M, hue, 45, 30, 0.3);
+      ctx.beginPath();
+      ctx.ellipse(sx, by, r * 1.1, bh, 0, 0, TAU);
+      ctx.fill();
+    }
+
+    var craters = 3 + Math.floor(rnd() * 3);
+    for (i = 0; i < craters; i++) {
+      var cx = x + (rnd() * 2 - 1) * r * 0.6;
+      var cy = y + (rnd() * 2 - 1) * r * 0.6;
+      var cr = r * (0.07 + rnd() * 0.1);
+      ctx.fillStyle = col(M, hue, 35, 22, 0.45);
+      ctx.beginPath();
+      ctx.arc(cx, cy, cr, 0, TAU);
+      ctx.fill();
+      // Lit rim on the lower-right side.
+      ctx.strokeStyle = col(M, hue, 70, 85, 0.22);
+      ctx.lineWidth = Math.max(0.6, r * 0.03);
+      ctx.beginPath();
+      ctx.arc(cx, cy, cr, 0, Math.PI * 0.6);
+      ctx.stroke();
+    }
+
+    // Shadow on the lower-right (terminator).
+    g = ctx.createRadialGradient(x - r * 0.35, y - r * 0.35, r * 0.3, x, y, r);
+    g.addColorStop(0, 'rgba(5,1,15,0)');
+    g.addColorStop(0.75, 'rgba(5,1,15,0)');
+    g.addColorStop(1, 'rgba(5,1,15,0.6)');
+    ctx.fillStyle = g;
+    ctx.fillRect(x - r, y - r, r * 2, r * 2);
+    ctx.restore();
+
+    // Thin rim light on the upper-left edge.
+    ctx.strokeStyle = col(M, hue, 90, 85, 0.35);
+    ctx.lineWidth = Math.max(0.8, r * 0.04);
+    ctx.beginPath();
+    ctx.arc(x, y, r - 0.5, Math.PI * 1.1, Math.PI * 1.6);
+    ctx.stroke();
+
+    if (p.ringed) drawRing(ctx, M, p, false);
+
+    ctx.restore();
+  }
+
+  // Small pulsing check mark at the upper right of a visited planet.
+  function drawMarker(ctx, M, p, time, cfg) {
+    var d = p.radius + 10, ang = -Math.PI * 0.25;
+    var mx = p.x + Math.cos(ang) * d, my = p.y + Math.sin(ang) * d;
+    var pulse = 0.75 + 0.25 * Math.sin(time * 2 + (p.id | 0));
+    var accent = cfg.COLORS.accent;
+
+    ctx.save();
+    ctx.globalAlpha = 0.25 * pulse;
+    ctx.fillStyle = accent;
+    ctx.beginPath();
+    ctx.arc(mx, my, 7, 0, TAU);
+    ctx.fill();
+
+    ctx.globalAlpha = pulse;
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 1.6;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(mx - 2.6, my + 0.2);
+    ctx.lineTo(mx - 0.6, my + 2.4);
+    ctx.lineTo(mx + 2.9, my - 2.2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  ORB.RenderPlanets = {
+    // planets: array of Planet, world coords. currentPlanet: planet the player orbits (or null).
+    draw: function (ctx, planets, time, currentPlanet) {
+      if (!planets || !planets.length) return;
+      var M = ORB.M, cfg = ORB.CONFIG, cam = ORB.Camera, view = ORB.View;
+      var camY = cam ? cam.y : 0;
+      var limit = view && view.h ? view.h * 0.8 + 80 : Infinity;
+      var i, p;
+
+      ctx.save();
+      ctx.setLineDash([]);
+
+      // Orbit guides first, so they sit beneath every body.
+      for (i = 0; i < planets.length; i++) {
+        p = planets[i];
+        if (visible(p, camY, limit)) drawOrbit(ctx, M, p, currentPlanet, cfg);
+      }
+
+      for (i = 0; i < planets.length; i++) {
+        p = planets[i];
+        if (!visible(p, camY, limit)) continue;
+        drawBody(ctx, M, p, time);
+        if (p.visited) drawMarker(ctx, M, p, time, cfg);
+      }
+
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var STAR_COLOR = '#ffd86b';
+  var ROCK_FILL = '#6b5d52';
+  var ROCK_EDGE = '#a38f7e';
+  var DANGER = 'rgba(255,90,90,0.6)';
+  var PU_COLORS = { shield: '#4da3ff', magnet: '#ff5a5a', slow: '#5dff8a' };
+
+  // 5-point star path centered at (cx, cy)
+  function starPath(ctx, cx, cy, outer, inner) {
+    ctx.beginPath();
+    for (var i = 0; i < 10; i++) {
+      var r = i % 2 === 0 ? outer : inner;
+      var a = -Math.PI / 2 + i * Math.PI / 5;
+      var px = cx + Math.cos(a) * r;
+      var py = cy + Math.sin(a) * r;
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+  }
+
+  function drawStars(ctx, stars, time) {
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      if (s.collected) continue;
+      var R = s.r * (1 + 0.12 * Math.sin(time * 3 + s.phase));
+      ctx.save();
+      // soft gold glow
+      var g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R * 3);
+      g.addColorStop(0, 'rgba(255,216,107,0.5)');
+      g.addColorStop(1, 'rgba(255,216,107,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, R * 3, 0, Math.PI * 2);
+      ctx.fill();
+      // rotating star body
+      ctx.translate(s.x, s.y);
+      ctx.rotate(time * 1.5 + s.phase);
+      starPath(ctx, 0, 0, R, R * 0.45);
+      ctx.fillStyle = STAR_COLOR;
+      ctx.shadowColor = STAR_COLOR;
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function drawAsteroids(ctx, asteroids) {
+    for (var i = 0; i < asteroids.length; i++) {
+      var a = asteroids[i];
+      if (!a || !a.verts) continue;
+      var n = a.verts.length;
+      ctx.save();
+      ctx.translate(a.x, a.y);
+      ctx.rotate(a.rot);
+      ctx.beginPath();
+      for (var k = 0; k < n; k++) {
+        var ang = (k / n) * Math.PI * 2;
+        var rr = a.r * a.verts[k];
+        var px = Math.cos(ang) * rr;
+        var py = Math.sin(ang) * rr;
+        if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      // red-ish warning glow around the rock
+      ctx.shadowColor = DANGER;
+      ctx.shadowBlur = 10;
+      ctx.fillStyle = ROCK_FILL;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = ROCK_EDGE;
+      ctx.lineWidth = 1.5;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function drawPowerIcon(ctx, kind, k, color) {
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = Math.max(1.5, k * 0.22);
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    var i, a;
+    if (kind === 'shield') {
+      // hexagon with a faint inner fill
+      ctx.beginPath();
+      for (i = 0; i < 6; i++) {
+        a = -Math.PI / 2 + i * Math.PI / 3;
+        if (i === 0) ctx.moveTo(Math.cos(a) * k, Math.sin(a) * k);
+        else ctx.lineTo(Math.cos(a) * k, Math.sin(a) * k);
+      }
+      ctx.closePath();
+      ctx.globalAlpha = 0.35;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.stroke();
+    } else if (kind === 'magnet') {
+      // U-shaped magnet opening upward
+      ctx.beginPath();
+      ctx.arc(0, 0, k * 0.7, 0, Math.PI, false);
+      ctx.lineTo(-k * 0.7, -k * 0.7);
+      ctx.moveTo(k * 0.7, 0);
+      ctx.lineTo(k * 0.7, -k * 0.7);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(-k * 0.7, -k * 0.35);
+      ctx.lineTo(-k * 0.7, -k * 0.7);
+      ctx.moveTo(k * 0.7, -k * 0.35);
+      ctx.lineTo(k * 0.7, -k * 0.7);
+      ctx.stroke();
+    } else if (kind === 'slow') {
+      // hourglass
+      var w = k * 0.6;
+      ctx.beginPath();
+      ctx.moveTo(-w, -k);
+      ctx.lineTo(w, -k);
+      ctx.lineTo(0, 0);
+      ctx.closePath();
+      ctx.globalAlpha = 0.35;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(-w, k);
+      ctx.lineTo(w, k);
+      ctx.lineTo(0, 0);
+      ctx.closePath();
+      ctx.globalAlpha = 0.35;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.stroke();
+    }
+  }
+
+  function drawPowerups(ctx, powerups, time) {
+    for (var i = 0; i < powerups.length; i++) {
+      var p = powerups[i];
+      if (p.collected) continue;
+      var color = PU_COLORS[p.kind] || '#ffffff';
+      var pulse = 1 + 0.08 * Math.sin(time * 4 + p.phase);
+      var R = p.r * pulse;
+      ctx.save();
+      // glowing halo
+      var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, R * 2.4);
+      g.addColorStop(0, color);
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, R * 2.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      // body
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, R, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(8,6,20,0.85)';
+      ctx.fill();
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 10;
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+      // icon
+      ctx.translate(p.x, p.y);
+      drawPowerIcon(ctx, p.kind, R * 0.55, color);
+      ctx.restore();
+    }
+  }
+
+  ORB.RenderEntities = {
+    // world coords; stars/asteroids/powerups are arrays of entity objects
+    draw: function (ctx, stars, asteroids, powerups, time) {
+      ctx.save();
+      drawStars(ctx, stars || [], time);
+      drawAsteroids(ctx, asteroids || []);
+      drawPowerups(ctx, powerups || [], time);
+      ctx.restore();
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // Fading trail: each segment gets more opaque and thicker toward the satellite.
+  function drawTrail(ctx, trail, color) {
+    var n = trail.length;
+    if (n < 2) return;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = color;
+    for (var i = 1; i < n; i++) {
+      var t = i / n;
+      ctx.globalAlpha = t * 0.7;
+      ctx.lineWidth = 0.8 + t * 2.2;
+      ctx.beginPath();
+      ctx.moveTo(trail[i - 1].x, trail[i - 1].y);
+      ctx.lineTo(trail[i].x, trail[i].y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // Small glowing body with two solar panels, rotated along the velocity.
+  function drawSatellite(ctx, p, color, time) {
+    var r = ORB.CONFIG.PLAYER_RADIUS;
+    var rot = (p.vx || p.vy) ? Math.atan2(p.vy, p.vx) : 0;
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(rot);
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 12;
+    // solar panels
+    ctx.fillStyle = 'rgba(125, 249, 255, 0.85)';
+    ctx.fillRect(-2 * r, -r * 0.45, r * 0.9, r * 0.9);
+    ctx.fillRect(r * 1.1, -r * 0.45, r * 0.9, r * 0.9);
+    // panel struts
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(-r * 1.1, 0);
+    ctx.lineTo(-r * 0.5, 0);
+    ctx.moveTo(r * 0.5, 0);
+    ctx.lineTo(r * 1.1, 0);
+    ctx.stroke();
+    // body
+    ctx.fillStyle = ORB.CONFIG.COLORS.text;
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.55, 0, Math.PI * 2);
+    ctx.fill();
+    // blinking light
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 0.5 + 0.5 * Math.sin(time * 6);
+    ctx.fillStyle = ORB.CONFIG.COLORS.danger;
+    ctx.beginPath();
+    ctx.arc(0, -r * 0.55, 1.2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawShield(ctx, p, time) {
+    var r = ORB.CONFIG.PLAYER_RADIUS + 7 + Math.sin(time * 4) * 0.8;
+    ctx.save();
+    ctx.shadowColor = '#5ab8ff';
+    ctx.shadowBlur = 14;
+    ctx.strokeStyle = 'rgba(90, 184, 255, 0.85)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(90, 184, 255, 0.12)';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // Pulsing dashed magnet aura, fades out as the magnet timer runs down.
+  function drawMagnet(ctx, p, time) {
+    var fade = Math.min(1, p.magnetTime / 1.0);
+    var pulse = 0.5 + 0.5 * Math.sin(time * 5);
+    ctx.save();
+    ctx.globalAlpha = (0.12 + 0.1 * pulse) * fade;
+    ctx.strokeStyle = ORB.CONFIG.COLORS.danger;
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([6, 8]);
+    ctx.lineDashOffset = -time * 30;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, ORB.CONFIG.MAGNET_RADIUS, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  // Dashed aim guide along the orbit tangent, fading out with distance.
+  function drawAimGuide(ctx, p, color) {
+    var t = ORB.Player.tangent(p);
+    var len = 110;
+    var ex = p.x + t.x * len;
+    var ey = p.y + t.y * len;
+    ctx.save();
+    var g = ctx.createLinearGradient(p.x, p.y, ex, ey);
+    g.addColorStop(0, color);
+    g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.strokeStyle = g;
+    ctx.globalAlpha = 0.9;
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 6]);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    ctx.lineTo(ex, ey);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  ORB.RenderPlayer = {
+    draw: function (ctx, player, time) {
+      if (!player || player.state === 'dead') return;
+      var skin = ORB.Skins.current();
+      var color = skin.color;
+      var trailColor = skin.trail || skin.color;
+
+      ctx.save();
+      drawTrail(ctx, player.trail || [], trailColor);
+
+      if (player.magnetTime > 0) drawMagnet(ctx, player, time);
+      if (player.state === 'orbit') drawAimGuide(ctx, player, color);
+      drawSatellite(ctx, player, color, time);
+      if (player.shield) drawShield(ctx, player, time);
+
+      ctx.restore();
+      ctx.setLineDash([]);
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var PAUSE_SVG =
+    '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">' +
+    '<rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/>' +
+    '<rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>';
+
+  var els = null;      // cached DOM refs, built once in init()
+  var bumpTimer = 0;
+  var flashTimer = 0;
+
+  function hudEl() {
+    return document.getElementById('hud');
+  }
+
+  function build(opts) {
+    var hud = hudEl();
+    if (!hud) return;
+    hud.innerHTML = '';
+
+    var top = document.createElement('div');
+    top.className = 'hud-top';
+
+    var score = document.createElement('div');
+    score.className = 'hud-score';
+    var scoreValue = document.createElement('span');
+    scoreValue.className = 'hud-score-value';
+    scoreValue.textContent = '0';
+    var combo = document.createElement('span');
+    combo.className = 'hud-combo hidden';
+    score.appendChild(scoreValue);
+    score.appendChild(combo);
+
+    var pause = document.createElement('button');
+    pause.className = 'icon-btn hud-pause';
+    pause.setAttribute('aria-label', 'Pause');
+    pause.innerHTML = PAUSE_SVG;
+    pause.addEventListener('click', function () {
+      if (opts && opts.onPause) opts.onPause();
+    });
+
+    top.appendChild(score);
+    top.appendChild(pause);
+
+    var powerups = document.createElement('div');
+    powerups.className = 'hud-powerups';
+    var puShield = document.createElement('span');
+    puShield.className = 'pu pu-shield hidden';
+    var puMagnet = document.createElement('span');
+    puMagnet.className = 'pu pu-magnet hidden';
+    var puSlow = document.createElement('span');
+    puSlow.className = 'pu pu-slow hidden';
+    powerups.appendChild(puShield);
+    powerups.appendChild(puMagnet);
+    powerups.appendChild(puSlow);
+
+    var flash = document.createElement('div');
+    flash.className = 'hud-flash';
+
+    hud.appendChild(top);
+    hud.appendChild(powerups);
+    hud.appendChild(flash);
+
+    els = {
+      hud: hud,
+      scoreValue: scoreValue,
+      combo: combo,
+      shield: puShield,
+      magnet: puMagnet,
+      slow: puSlow,
+      flash: flash
+    };
+  }
+
+  function setHidden(el, hidden) {
+    if (!el) return;
+    if (hidden) el.classList.add('hidden');
+    else el.classList.remove('hidden');
+  }
+
+  ORB.HUD = {
+    init: function (opts) {
+      build(opts || {});
+    },
+
+    show: function () {
+      if (els) setHidden(els.hud, false);
+    },
+
+    hide: function () {
+      if (els) setHidden(els.hud, true);
+    },
+
+    setScore: function (n) {
+      if (!els) return;
+      els.scoreValue.textContent = String(n);
+      // restart the brief "bump" animation
+      els.scoreValue.classList.remove('bump');
+      void els.scoreValue.offsetWidth; // force reflow so the class re-triggers
+      els.scoreValue.classList.add('bump');
+      clearTimeout(bumpTimer);
+      bumpTimer = setTimeout(function () {
+        if (els) els.scoreValue.classList.remove('bump');
+      }, 250);
+    },
+
+    setCombo: function (n) {
+      if (!els) return;
+      if (n <= 1) {
+        setHidden(els.combo, true);
+        return;
+      }
+      els.combo.textContent = 'x' + n;
+      setHidden(els.combo, false);
+    },
+
+    setPowerups: function (state) {
+      if (!els || !state) return;
+      var I18N = ORB.I18N;
+      var shield = !!state.shield;
+      var magnet = state.magnet || 0;
+      var slow = state.slow || 0;
+
+      setHidden(els.shield, !shield);
+      if (shield) els.shield.textContent = I18N.t('shield');
+
+      setHidden(els.magnet, !(magnet > 0));
+      if (magnet > 0) els.magnet.textContent = I18N.t('magnet') + ' ' + Math.ceil(magnet);
+
+      setHidden(els.slow, !(slow > 0));
+      if (slow > 0) els.slow.textContent = I18N.t('slow') + ' ' + Math.ceil(slow);
+    },
+
+    flash: function (text, color) {
+      if (!els) return;
+      var el = els.flash;
+      el.textContent = text;
+      el.style.color = color || '';
+      el.classList.remove('show');
+      void el.offsetWidth; // force reflow so the animation restarts
+      el.classList.add('show');
+      clearTimeout(flashTimer);
+      flashTimer = setTimeout(function () {
+        if (els) els.flash.classList.remove('show');
+      }, 900);
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var handlers = {};
+  var screensEl = null;
+  var sections = {};      // name -> <section>
+  var primary = {};       // name -> primary button
+  var soundBtns = [];     // all sound toggle buttons
+  var skinsEl = null;
+  var currentName = null;
+  var lastData = {};
+
+  function t(key, vars) { return ORB.I18N.t(key, vars); }
+
+  // Create element helper: el(tag, className, text)
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined && text !== null) e.textContent = text;
+    return e;
+  }
+
+  function btn(cls, text, onClick) {
+    var b = el('button', cls, text);
+    b.type = 'button';
+    b.addEventListener('click', function () {
+      try { ORB.Audio.play('click'); } catch (e) { /* audio is optional */ }
+      if (onClick) onClick();
+    });
+    return b;
+  }
+
+  function soundButton() {
+    var b = btn('btn btn-ghost sound-btn', '', function () {
+      var muted = handlers.onToggleSound ? handlers.onToggleSound() : ORB.Audio.toggle();
+      refreshSound(muted);
+    });
+    soundBtns.push(b);
+    return b;
+  }
+
+  function refreshSound(muted) {
+    if (typeof muted !== 'boolean') muted = ORB.Audio.isMuted();
+    var label = t(muted ? 'soundOff' : 'soundOn');
+    for (var i = 0; i < soundBtns.length; i++) soundBtns[i].textContent = label;
+  }
+
+  function bestOf(data) {
+    if (data && typeof data.best === 'number') return data.best;
+    return ORB.Storage.getBest();
+  }
+
+  // ---- Skins (menu only) ----
+  function renderSkins(best) {
+    if (!skinsEl) return;
+    skinsEl.innerHTML = '';
+    var list = ORB.Skins.list;
+    var selectedId = ORB.Skins.currentId();
+    for (var i = 0; i < list.length; i++) {
+      (function (skin) {
+        var unlocked = ORB.Skins.isUnlocked(skin, best);
+        var cls = 'skin';
+        if (!unlocked) cls += ' locked';
+        if (skin.id === selectedId) cls += ' selected';
+        var b = btn(cls, '', function () {
+          if (!ORB.Skins.isUnlocked(skin, ORB.Storage.getBest())) return;
+          ORB.Skins.select(skin.id);
+          renderSkins(bestOf(lastData));
+        });
+        var dot = el('span', 'skin-dot');
+        dot.style.background = skin.color;
+        b.appendChild(dot);
+        b.appendChild(el('span', 'skin-name', ORB.Skins.name(skin)));
+        if (!unlocked) b.appendChild(el('span', 'skin-lock', t('locked', { n: skin.unlock })));
+        skinsEl.appendChild(b);
+      })(list[i]);
+    }
+  }
+
+  // ---- Build DOM ----
+  function buildMenu() {
+    var sec = el('section', 'screen screen-menu');
+    var card = el('div', 'screen-card');
+    card.appendChild(el('h1', 'game-title', t('title')));
+    card.appendChild(el('p', 'subtitle', t('subtitle')));
+    sec.bestStat = el('p', 'stat');
+    card.appendChild(sec.bestStat);
+    var play = btn('btn btn-primary', t('play'), function () { handlers.onPlay && handlers.onPlay(); });
+    primary.menu = play;
+    card.appendChild(play);
+    card.appendChild(el('h2', 'section-title', t('skins')));
+    skinsEl = el('div', 'skins');
+    card.appendChild(skinsEl);
+    card.appendChild(soundButton());
+    sec.appendChild(card);
+    return sec;
+  }
+
+  function buildPause() {
+    var sec = el('section', 'screen screen-pause');
+    var card = el('div', 'screen-card');
+    card.appendChild(el('h2', 'screen-title', t('paused')));
+    var resume = btn('btn btn-primary', t('resume'), function () { handlers.onResume && handlers.onResume(); });
+    primary.pause = resume;
+    card.appendChild(resume);
+    card.appendChild(btn('btn', t('restart'), function () { handlers.onRestart && handlers.onRestart(); }));
+    card.appendChild(btn('btn', t('menu'), function () { handlers.onMenu && handlers.onMenu(); }));
+    card.appendChild(soundButton());
+    sec.appendChild(card);
+    return sec;
+  }
+
+  function buildOver() {
+    var sec = el('section', 'screen screen-over');
+    var card = el('div', 'screen-card');
+    card.appendChild(el('h2', 'screen-title', t('gameOver')));
+    sec.reason = el('p', 'reason');
+    card.appendChild(sec.reason);
+    sec.bigScore = el('div', 'big-score');
+    card.appendChild(sec.bigScore);
+    sec.bestStat = el('p', 'stat');
+    card.appendChild(sec.bestStat);
+    sec.badge = el('span', 'badge new-best hidden', t('newBest'));
+    card.appendChild(sec.badge);
+    sec.planetsStat = el('p', 'stat');
+    card.appendChild(sec.planetsStat);
+    var restart = btn('btn btn-primary', t('restart'), function () { handlers.onRestart && handlers.onRestart(); });
+    primary.over = restart;
+    card.appendChild(restart);
+    card.appendChild(btn('btn', t('menu'), function () { handlers.onMenu && handlers.onMenu(); }));
+    sec.appendChild(card);
+    return sec;
+  }
+
+  // ---- Dynamic text ----
+  function fillMenu(data) {
+    var best = bestOf(data);
+    sections.menu.bestStat.textContent = t('best') + ': ' + best;
+    renderSkins(best);
+    refreshSound();
+  }
+
+  function fillPause() {
+    refreshSound();
+  }
+
+  function fillOver(data) {
+    var d = data || {};
+    var best = bestOf(d);
+    sections.over.reason.textContent = t(d.reason || 'lostTime');
+    sections.over.bigScore.textContent = String(d.score || 0);
+    sections.over.bestStat.textContent = t('best') + ': ' + best;
+    sections.over.badge.classList.toggle('hidden', !d.newBest);
+    sections.over.planetsStat.textContent = t('planets') + ': ' + (d.planets || 0);
+  }
+
+  // ---- Public API ----
+  function init(h) {
+    handlers = h || {};
+    screensEl = document.getElementById('screens');
+    if (!screensEl) return;
+    screensEl.innerHTML = '';
+    soundBtns = [];
+    sections.menu = buildMenu();
+    sections.pause = buildPause();
+    sections.over = buildOver();
+    screensEl.appendChild(sections.menu);
+    screensEl.appendChild(sections.pause);
+    screensEl.appendChild(sections.over);
+  }
+
+  function show(name, data) {
+    if (!sections[name]) return;
+    lastData = data || {};
+    if (name === 'menu') fillMenu(lastData);
+    else if (name === 'pause') fillPause();
+    else if (name === 'over') fillOver(lastData);
+
+    for (var k in sections) {
+      if (Object.prototype.hasOwnProperty.call(sections, k)) {
+        sections[k].classList.toggle('active', k === name);
+      }
+    }
+    screensEl.classList.add('has-active');
+    currentName = name;
+    if (primary[name]) {
+      try { primary[name].focus(); } catch (e) { /* ignore */ }
+    }
+  }
+
+  function hideAll() {
+    for (var k in sections) {
+      if (Object.prototype.hasOwnProperty.call(sections, k)) sections[k].classList.remove('active');
+    }
+    if (screensEl) screensEl.classList.remove('has-active');
+    currentName = null;
+  }
+
+  function current() {
+    return currentName;
+  }
+
+  ORB.Screens = {
+    init: init,
+    show: show,
+    hideAll: hideAll,
+    current: current
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  var built = false;
+
+  // Returns the #tutorial container (looked up lazily, never at load time).
+  function root() {
+    return document.getElementById('tutorial');
+  }
+
+  ORB.Tutorial = {
+    // True until the player has finished the tutorial once.
+    shouldShow: function () {
+      return !ORB.Storage.get('tutorialDone', false);
+    },
+
+    // Builds the hint DOM once and shows it.
+    show: function () {
+      var el = root();
+      if (!el) return;
+      if (!built) {
+        el.innerHTML = '';
+        var hint = document.createElement('div');
+        hint.className = 'tutorial-hint';
+
+        var icon = document.createElement('div');
+        icon.className = 'tap-icon';
+
+        var text = document.createElement('p');
+        text.textContent = ORB.I18N.t('tapHint');
+
+        hint.appendChild(icon);
+        hint.appendChild(text);
+        el.appendChild(hint);
+        built = true;
+      }
+      el.classList.add('show');
+    },
+
+    // Hides the hint without marking the tutorial as done.
+    hide: function () {
+      var el = root();
+      if (el) el.classList.remove('show');
+    },
+
+    // Hides the hint and remembers that the tutorial was completed.
+    done: function () {
+      this.hide();
+      ORB.Storage.set('tutorialDone', true);
+    }
+  };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var ORB = window.ORB = window.ORB || {};
+
+  // States: 'menu' | 'play' | 'pause' | 'dying' | 'over'
+  var state = 'menu';
+  var canvas = null, ctx = null;
+  var player = null;
+  var time = 0, lastT = null;
+  var deathT = 0, deathReason = '';
+  var tutorialOn = false;
+  var booted = false;
+
+  // Camera target: follow the planet when orbiting, otherwise the satellite.
+  function camTarget() {
+    var y = (player.state === 'orbit' && player.planet) ? player.planet.y : player.y;
+    return y - ORB.View.h * ORB.CONFIG.CAMERA_LEAD;
+  }
+
+  // Generate planets above the camera, plus stars and power-ups between new planets.
+  function ensureAhead() {
+    var diff = ORB.Difficulty.get(ORB.Score.planets);
+    var created = ORB.Planets.ensure(ORB.Camera.y - ORB.View.h * 1.2, diff) || [];
+    var list = ORB.Planets.list;
+    created.forEach(function (p) {
+      var i = list.indexOf(p);
+      if (i > 0) {
+        var prev = list[i - 1];
+        ORB.Stars.spawnBetween(prev, p, diff);
+        ORB.Powerups.maybeSpawnBetween(prev, p, diff);
+      }
+    });
+  }
+
+  // Remove everything that has fallen below the visible area.
+  function pruneWorld() {
+    var bottomY = ORB.Camera.y + ORB.View.h;
+    ORB.Planets.prune(bottomY);
+    ORB.Stars.prune(bottomY);
+    ORB.Asteroids.prune(bottomY);
+    ORB.Powerups.prune(bottomY);
+  }
+
+  function setupWorld() {
+    var CFG = ORB.CONFIG;
+    ORB.Planets.reset();
+    ORB.Stars.reset();
+    ORB.Asteroids.reset();
+    ORB.Powerups.reset();
+    ORB.Particles.reset();
+    ORB.Score.reset();
+    player = ORB.Player.create(ORB.Planets.list[0]);
+    ORB.Camera.reset(CFG.WORLD_W / 2, player.planet.y - ORB.View.h * CFG.CAMERA_LEAD);
+    ensureAhead();
+  }
+
+  function start() {
+    setupWorld();
+    state = 'play';
+    ORB.Screens.hideAll();
+    ORB.HUD.show();
+    ORB.HUD.setScore(0);
+    ORB.HUD.setCombo(1);
+    tutorialOn = !!ORB.Tutorial.shouldShow();
+    if (tutorialOn) ORB.Tutorial.show();
+  }
+
+  function pause() {
+    if (state !== 'play') return;
+    state = 'pause';
+    ORB.Screens.show('pause');
+  }
+
+  function resume() {
+    if (state !== 'pause') return;
+    state = 'play';
+    lastT = null; // avoid a dt spike after the pause
+    ORB.Screens.hideAll();
+  }
+
+  function togglePause() {
+    if (state === 'play') pause();
+    else if (state === 'pause') resume();
+  }
+
+  function toMenu() {
+    ORB.Tutorial.hide();
+    tutorialOn = false;
+    setupWorld();
+    state = 'menu';
+    ORB.HUD.hide();
+    ORB.Screens.show('menu', { best: ORB.Storage.getBest() });
+  }
+
+  function die(reason) {
+    var CFG = ORB.CONFIG, p = player;
+    state = 'dying';
+    deathT = 0;
+    deathReason = reason;
+    p.state = 'dead';
+    ORB.Tutorial.hide();
+    tutorialOn = false;
+    ORB.Particles.burst(p.x, p.y, CFG.COLORS.danger, 40, 240, 0.9);
+    ORB.Camera.shake(10, 0.4);
+    ORB.Audio.play('death');
+    ORB.Haptics.buzz([30, 40, 60]);
+  }
+
+  function finishDeath() {
+    var score = ORB.Score.value;
+    var best = ORB.Storage.getBest();
+    var newBest = score > best;
+    if (newBest) {
+      ORB.Storage.setBest(score);
+      best = score;
+    }
+    ORB.HUD.hide();
+    state = 'over';
+    ORB.Screens.show('over', {
+      score: score,
+      best: best,
+      newBest: newBest,
+      planets: ORB.Score.planets,
+      reason: deathReason
+    });
+  }
+
+  // Player flew into the capture zone of a planet.
+  function onCapture(planet) {
+    var CFG = ORB.CONFIG;
+    var flyTime = player.flyTime;
+    ORB.Player.capture(player, planet);
+    ORB.Particles.ring(planet.x, planet.y, ORB.M.hsl(planet.hue, 80, 65), planet.orbitRadius);
+    var sound = 'capture';
+    if (!planet.visited) {
+      planet.visited = true;
+      var r = ORB.Score.addPlanet(flyTime);
+      ORB.HUD.setScore(ORB.Score.value);
+      ORB.HUD.setCombo(r.combo);
+      if (r.perfect) {
+        sound = 'perfect';
+        ORB.HUD.flash(ORB.I18N.t('perfect') + ' x' + r.combo, CFG.COLORS.accent);
+      }
+    }
+    ORB.Audio.play(sound);
+  }
+
+  function onTap() {
+    if (state === 'menu') return start();
+    if (state !== 'play' || player.state !== 'orbit') return;
+    var CFG = ORB.CONFIG;
+    ORB.Player.launch(player);
+    ORB.Audio.play('launch');
+    ORB.Haptics.buzz(8);
+    ORB.Particles.burst(player.x, player.y, CFG.COLORS.accent, 12, 140, 0.4);
+    if (tutorialOn) {
+      ORB.Tutorial.done();
+      tutorialOn = false;
+    }
+  }
+
+  // Full gameplay step (only in 'play').
+  function updatePlay(dt) {
+    var CFG = ORB.CONFIG, p = player;
+    var sdt = dt * (p.slowTime > 0 ? CFG.SLOW_FACTOR : 1);
+    p.magnetTime = Math.max(0, p.magnetTime - dt);
+    p.slowTime = Math.max(0, p.slowTime - dt);
+    var diff = ORB.Difficulty.get(ORB.Score.planets);
+
+    ORB.Planets.update(sdt);
+    ORB.Player.update(p, sdt);
+
+    if (p.state === 'fly') {
+      var hit = ORB.Planets.findCapture(p.x, p.y, p.fromPlanet);
+      if (hit) {
+        onCapture(hit);
+      } else if (p.flyTime > CFG.MAX_FLY_TIME) {
+        return die('lostTime');
+      } else {
+        var limX = Math.min(ORB.View.w / 2, CFG.WORLD_W * 0.8) + CFG.OFFSCREEN_MARGIN;
+        var limY = ORB.Camera.y + ORB.View.h / 2 + CFG.OFFSCREEN_MARGIN;
+        if (Math.abs(p.x - ORB.Camera.x) > limX || p.y > limY) {
+          return die('lostScreen');
+        }
+      }
+    }
+
+    // Stars
+    var got = ORB.Stars.update(sdt, p);
+    if (got > 0) {
+      for (var i = 0; i < got; i++) ORB.Score.addStar();
+      ORB.HUD.setScore(ORB.Score.value);
+      ORB.Audio.play('star');
+      ORB.Particles.burst(p.x, p.y, CFG.COLORS.star, 8 * got, 140, 0.5);
+    }
+
+    // Power-ups
+    var kinds = ORB.Powerups.update(sdt, p) || [];
+    kinds.forEach(function (k) {
+      if (k === 'shield') p.shield = true;
+      else if (k === 'magnet') p.magnetTime = CFG.MAGNET_TIME;
+      else if (k === 'slow') p.slowTime = CFG.SLOW_TIME;
+      ORB.Audio.play('power');
+      ORB.HUD.flash(ORB.I18N.t(k), CFG.COLORS.accent);
+    });
+
+    // Asteroids
+    ORB.Asteroids.maybeSpawn(sdt, ORB.Camera.y, ORB.View.w, ORB.View.h, diff);
+    var rock = ORB.Asteroids.update(sdt, p);
+    if (rock) {
+      if (p.shield) {
+        p.shield = false;
+        ORB.Asteroids.destroy(rock);
+        ORB.Particles.burst(rock.x, rock.y, CFG.COLORS.danger, 20, 200, 0.6);
+        ORB.Audio.play('shield');
+      } else {
+        return die('lostAsteroid');
+      }
+    }
+
+    ORB.Camera.update(dt, camTarget());
+    ORB.Particles.update(dt);
+    ensureAhead();
+    pruneWorld();
+    ORB.HUD.setPowerups({ shield: p.shield, magnet: p.magnetTime, slow: p.slowTime });
+  }
+
+  // Light world animation used in menu, over and dying states.
+  function stepWorld(dt) {
+    ORB.Planets.update(dt);
+    if (player.state === 'orbit') ORB.Player.update(player, dt);
+    ORB.Camera.update(dt, camTarget());
+    ORB.Particles.update(dt);
+    ensureAhead();
+    pruneWorld();
+  }
+
+  function update(dt) {
+    if (state === 'play') {
+      updatePlay(dt);
+    } else if (state === 'dying') {
+      stepWorld(dt);
+      deathT += dt;
+      if (deathT >= ORB.CONFIG.DEATH_DELAY) finishDeath();
+    } else if (state === 'menu' || state === 'over') {
+      stepWorld(dt);
+    }
+    // 'pause': world frozen
+  }
+
+  function render() {
+    ORB.View.screenTransform(ctx);
+    ORB.Background.draw(ctx, ORB.Camera.y, time);
+    ORB.View.worldTransform(ctx, ORB.Camera.getX(), ORB.Camera.getY());
+    var current = (player && player.state === 'orbit') ? player.planet : null;
+    ORB.RenderPlanets.draw(ctx, ORB.Planets.list, time, current);
+    ORB.RenderEntities.draw(ctx, ORB.Stars.list, ORB.Asteroids.list, ORB.Powerups.list, time);
+    ORB.Particles.draw(ctx);
+    ORB.RenderPlayer.draw(ctx, player, time);
+  }
+
+  function frame(now) {
+    var dt = lastT === null ? 0 : Math.max(0, Math.min((now - lastT) / 1000, 0.033));
+    lastT = now;
+    time += dt;
+    update(dt);
+    render();
+    requestAnimationFrame(frame);
+  }
+
+  function init() {
+    if (booted) return;
+    booted = true;
+    canvas = document.getElementById('game');
+    ctx = canvas.getContext('2d');
+    ORB.View.init(canvas);
+    ORB.Input.init(canvas);
+    ORB.HUD.init({ onPause: pause });
+    ORB.Screens.init({
+      onPlay: function () { start(); },
+      onResume: function () { resume(); },
+      onRestart: function () { start(); },
+      onMenu: function () { toMenu(); },
+      onToggleSound: function () { return ORB.Audio.toggle(); }
+    });
+    ORB.Background.init();
+    ORB.Input.onTap(onTap);
+    ORB.Input.onPause(togglePause);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) pause();
+    });
+    setupWorld();
+    state = 'menu';
+    ORB.Screens.show('menu', { best: ORB.Storage.getBest() });
+    requestAnimationFrame(frame);
+  }
+
+  ORB.Game = {
+    init: init,
+    start: start,
+    pause: pause,
+    resume: resume,
+    togglePause: togglePause,
+    toMenu: toMenu,
+    getState: function () { return state; }
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+</script>
+</body>
+</html>
