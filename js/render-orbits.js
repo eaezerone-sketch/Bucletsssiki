@@ -174,9 +174,10 @@
       ctx.lineWidth = 8;
       ctx.stroke();
       ringPath(ctx, p.x, p.y, R, amp, ph);
-      ctx.strokeStyle = hsla(hue, 95, 82, 0.6 + 0.2 * pulse);
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = hsla(hue, 95, 82, 0.6 + 0.2 * pulse + 0.2 * amp);
+      ctx.lineWidth = 2 + 2.5 * amp;
       ctx.stroke();
+      drawComet(ctx, p, player, hue);
     } else if (p.visited) {
       ctx.setLineDash([]);
       ringPath(ctx, p.x, p.y, R, amp, ph);
@@ -195,6 +196,47 @@
       ctx.lineDashOffset = -((time * 28) % 16);
       ctx.strokeStyle = hsla(hue, 75, 75, 0.6);
       ctx.lineWidth = 1.6;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // Bright arc trailing behind the ship along its ring: shows the orbit direction and speed.
+  function drawComet(ctx, p, player, hue) {
+    var R = p.orbitRadius, a = player.angle;
+    if (!(a === a)) return;
+    var dir = player.dir || 1, len = 0.9 + 0.5 * clamp01((player.speed || 0) / 500);
+    ctx.save();
+    ctx.setLineDash([]);
+    ctx.lineCap = 'round';
+    var steps = 4;
+    for (var i = 0; i < steps; i++) {
+      var f0 = i / steps, f1 = (i + 1) / steps;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, R, a - dir * len * f1, a - dir * len * f0, dir < 0);
+      ctx.globalAlpha = 0.55 * (1 - f0) * (1 - f0);
+      ctx.strokeStyle = hsla(hue, 95, 88, 1);
+      ctx.lineWidth = 3.2 * (1 - f0 * 0.6);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // Echo rings radiating outward from a freshly hit planet (driven by p.ripple).
+  function drawEchoes(ctx, p, hue) {
+    var amp = clamp01(p.ripple || 0);
+    if (amp < 0.05) return;
+    var R = p.orbitRadius;
+    ctx.save();
+    ctx.setLineDash([]);
+    for (var k = 0; k < 2; k++) {
+      var f = 1 - amp;
+      var r = R * (1.02 + 0.55 * Math.min(1, f * (1.6 + k * 0.8)) + 0.06 * k);
+      ctx.globalAlpha = amp * (k ? 0.22 : 0.4);
+      ctx.strokeStyle = hsla(hue, 90, 80, 1);
+      ctx.lineWidth = (k ? 1 : 2) + 2 * amp;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r, 0, TAU);
       ctx.stroke();
     }
     ctx.restore();
@@ -268,6 +310,7 @@
         p = planets[i];
         if (p.dead || p.type === 'blackhole' || !onScreen(p)) continue;
         drawRing(ctx, p, player, t);
+        drawEchoes(ctx, p, p.hue || 0);
         drawArcs(ctx, p, t);
       }
 

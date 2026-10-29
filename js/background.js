@@ -12,6 +12,8 @@
   var MOTE_COUNT = 36;      // slow dust motes
   var SHOOTER_COUNT = 2;    // shooting-star pool size
   var NEB_SIZE = 128;       // nebula sprite resolution (soft gradient, upscaled)
+  var SOFT_SCALE = 0.5;     // soft layers render at half device resolution (they are blurry anyway)
+  var VIG_MAX = 0.55;       // vignette alpha at the far corner
 
   // Flat Float32Array per layer, 4 floats per star: nx, ny, size, phase.
   var layerData = null;
@@ -20,8 +22,12 @@
   var shooters = null;      // pool of shooting stars
   var shootT = 0;           // seconds until the next shooting star
   var lastT = -1;           // previous draw time, for dt
-  var baseCanvas = null;    // static vertical gradient (cached per size)
-  var vignetteCanvas = null; // static edge darkening (cached per size)
+  var softCanvas = null;    // low-res target for the soft layers (base, nebulae, galaxies, vignette)
+  var softCtx = null;
+  var softKx = 1, softKy = 1; // css px -> soft canvas px
+  var baseGrad = null;      // static vertical gradient (cached per size)
+  var vignetteCanvas = null; // static edge darkening, low-res (cached per size)
+  var vigCx = 0, vigCy = 0, vigInner = 0, vigSpan = 1; // vignette geometry, to dim stars the same way
   var nebulae = [];         // [{ canvas, q }] sprites, repainted when hue steps
   var registered = false;
 
@@ -34,8 +40,8 @@
   }
 
   // Offscreen canvas at device resolution whose context uses CSS px units.
-  function newLayer(w, h) {
-    var dpr = ORB.View.dpr || 1;
+  function newLayer(w, h, scale) {
+    var dpr = (ORB.View.dpr || 1) * (scale || 1);
     var c = document.createElement('canvas');
     c.width = Math.max(1, Math.round(w * dpr));
     c.height = Math.max(1, Math.round(h * dpr));
@@ -44,27 +50,39 @@
     return { canvas: c, ctx: x };
   }
 
-  // Base gradient and vignette: depend only on the viewport size.
+  // Soft-layer target, base gradient and vignette: depend only on the viewport size.
   function buildBase(w, h) {
     var C = ORB.CONFIG.COLORS;
 
-    var base = newLayer(w, h);
-    var g = base.ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, C.bg1);
-    g.addColorStop(1, C.bg2);
-    base.ctx.fillStyle = g;
-    base.ctx.fillRect(0, 0, w, h);
-    baseCanvas = base.canvas;
+    var soft = newLayer(w, h, SOFT_SCALE);
+    softCanvas = soft.canvas;
+    softCtx = soft.ctx;
+    softKx = softCanvas.width / w;
+    softKy = softCanvas.height / h;
+    baseGrad = softCtx.createLinearGradient(0, 0, 0, h);
+    baseGrad.addColorStop(0, C.bg1);
+    baseGrad.addColorStop(1, C.bg2);
 
-    var vig = newLayer(w, h);
-    var inner = Math.min(w, h) * 0.35;
+    var vig = newLayer(w, h, SOFT_SCALE);
+    vigCx = w / 2;
+    vigCy = h / 2;
+    vigInner = Math.min(w, h) * 0.35;
     var outer = Math.sqrt(w * w + h * h) / 2;
-    var vg = vig.ctx.createRadialGradient(w / 2, h / 2, inner, w / 2, h / 2, outer);
+    vigSpan = Math.max(1, outer - vigInner);
+    var vg = vig.ctx.createRadialGradient(vigCx, vigCy, vigInner, vigCx, vigCy, outer);
     vg.addColorStop(0, 'rgba(0, 0, 0, 0)');
-    vg.addColorStop(1, 'rgba(0, 0, 0, 0.55)');
+    vg.addColorStop(1, 'rgba(0, 0, 0, ' + VIG_MAX + ')');
     vig.ctx.fillStyle = vg;
     vig.ctx.fillRect(0, 0, w, h);
     vignetteCanvas = vig.canvas;
+  }
+
+  // Brightness factor of the vignette at (x, y): stars are dimmed by it instead of being
+  // covered by a second full-screen overlay.
+  function vigDim(x, y) {
+    var dx = x - vigCx, dy = y - vigCy;
+    var t = (Math.sqrt(dx * dx + dy * dy) - vigInner) / vigSpan;
+    return t <= 0 ? 1 : 1 - VIG_MAX * (t > 1 ? 1 : t);
   }
 
   // Paint one distant spiral galaxy (two soft arms + core) into its own sprite.
@@ -277,11 +295,11 @@
       var dt = lastT >= 0 ? M.clamp(time - lastT, 0, 0.1) : 0;
       lastT = time;
 
-      ctx.save();
-      ctx.globalAlpha = 1;
-
-      // Static base gradient.
-      ctx.drawImage(baseCanvas, 0, 0, w, h);
+      // Soft layers go to a half-res buffer (one cheap upscale instead of 4 full-screen passes).
+      var sc = softCtx;
+      sc.globalAlpha = 1;
+      sc.fillStyle = baseGrad;
+      sc.fillRect(0, 0, w, h);
 
       // Soft nebula blobs; hue drifts slowly with altitude.
       var hue = wrapHue(280 + camY * 0.02);
@@ -291,8 +309,8 @@
       var cy2 = h * 0.75 + wrap(camY * 0.02 + h * 0.25, h * 0.5);
       var n1 = nebulaSprite(0, hue, 70, 45, 0.16);
       var n2 = nebulaSprite(1, hue2, 80, 50, 0.12);
-      ctx.drawImage(n1, w * 0.3 - r, cy1 - r, r * 2, r * 2);
-      ctx.drawImage(n2, w * 0.8 - r * 0.8, cy2 - r * 0.8, r * 1.6, r * 1.6);
+      sc.drawImage(n1, w * 0.3 - r, cy1 - r, r * 2, r * 2);
+      sc.drawImage(n2, w * 0.8 - r * 0.8, cy2 - r * 0.8, r * 1.6, r * 1.6);
 
       // Distant spiral galaxies, slowly turning.
       for (var gi = 0; gi < galaxies.length; gi++) {
@@ -300,12 +318,18 @@
         var R = g.R;
         var ext = h + R * 2;
         var gy = wrap(g.ny * ext - camY * g.factor, ext) - R;
-        ctx.save();
-        ctx.translate(g.nx * w, gy);
-        ctx.rotate(g.angle + time * g.spin);
-        ctx.drawImage(g.layer, -R, -R, R * 2, R * 2);
-        ctx.restore();
+        var ga = g.angle + time * g.spin, gx = g.nx * w;
+        var gc = Math.cos(ga), gs = Math.sin(ga);
+        sc.setTransform(gc * softKx, gs * softKy, -gs * softKx, gc * softKy, gx * softKx, gy * softKy);
+        sc.drawImage(g.layer, -R, -R, R * 2, R * 2);
       }
+      sc.setTransform(softKx, 0, 0, softKy, 0, 0);
+
+      // Vignette on the soft layer, then one blit to the screen.
+      sc.drawImage(vignetteCanvas, 0, 0, w, h);
+      ctx.save();
+      ctx.globalAlpha = 1;
+      ctx.drawImage(softCanvas, 0, 0, w, h);
 
       // Star layers: scrolled by camY * factor, wrapped vertically, twinkling.
       ctx.fillStyle = C.text;
@@ -318,7 +342,7 @@
           var y = wrap(data[i + 1] * h - off, h);
           var s = data[i + 2];
           var tw = 0.6 + 0.4 * Math.sin(time * (1.5 + li) + data[i + 3]);
-          ctx.globalAlpha = L.alpha * tw;
+          ctx.globalAlpha = L.alpha * tw * vigDim(x, y);
           ctx.fillRect(x - s * 0.5, y - s * 0.5, s, s);
         }
       }
@@ -329,7 +353,7 @@
         var mx = motes[mi * 4] * w;
         var my = wrap(motes[mi * 4 + 1] * h - camY * 0.08 - time * 5, h);
         var ms = motes[mi * 4 + 2];
-        ctx.globalAlpha = 0.14 + 0.1 * Math.sin(time * 0.7 + motes[mi * 4 + 3]);
+        ctx.globalAlpha = (0.14 + 0.1 * Math.sin(time * 0.7 + motes[mi * 4 + 3])) * vigDim(mx, my);
         ctx.fillRect(mx - ms * 0.5, my - ms * 0.5, ms, ms);
       }
 
@@ -337,9 +361,6 @@
       updateShooters(dt, w, h);
       drawShooters(ctx);
 
-      // Vignette last, darkening the screen edges.
-      ctx.globalAlpha = 1;
-      ctx.drawImage(vignetteCanvas, 0, 0, w, h);
       ctx.restore();
     }
   };

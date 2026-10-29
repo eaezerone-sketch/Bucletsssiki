@@ -217,6 +217,14 @@
         ctx.globalAlpha = a * 0.9;
         ctx.lineWidth = 1.5 + 3 * (1 - k);
         ctx.stroke();
+        // a thinner echo ring trails behind the main wave
+        if (k > 0.12) {
+          ctx.beginPath();
+          ctx.arc(r.x, r.y, r.maxR * easeOutCubic((k - 0.12) / 0.88) * 0.7, 0, TWO_PI);
+          ctx.globalAlpha = a * 0.4;
+          ctx.lineWidth = 1 + 1.5 * (1 - k);
+          ctx.stroke();
+        }
       }
 
       for (i = 0; i < popups.length; i++) {
@@ -234,6 +242,7 @@
         ctx.save();
         ctx.translate(p.x, p.y - dy);
         ctx.scale(s, s);
+        if (p.t < POPUP_POP) ctx.rotate((1 - p.t / POPUP_POP) * (p.x % 2 < 1 ? 0.16 : -0.16));
         ctx.globalAlpha = a;
         ctx.font = p.font;
         ctx.lineWidth = Math.max(2, p.size * 0.22);

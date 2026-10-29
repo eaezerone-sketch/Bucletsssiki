@@ -4,7 +4,7 @@
 
   var POOL = 56;          // fixed ember pool size (no per-frame allocation)
   var MAX_PTS = 256;      // capacity of the reused surface buffers
-  var TENDRILS = 7;       // dark tendrils reaching up from the surface
+  var TENDRILS = 11;      // dark tendrils reaching up from the surface
   var EMBER_RATE = 18;    // embers spawned per second
 
   // Wave layers drawn back to front (the main body is handled separately).
@@ -72,7 +72,8 @@
       var xc = camX + ((i + 0.5) / TENDRILS - 0.5) * viewW * 0.9 +
         Math.sin(t * 0.3 + i * 1.9) * viewW * 0.04;
       var sy = wave(xc, t, MAIN);
-      var h = 26 + 56 * (0.5 + 0.5 * Math.sin(t * (0.6 + 0.11 * i) + i * 2.3));
+      var surge = Math.max(0, Math.sin(t * 0.55 + i * 0.9)); // slow lunge: tendrils reach up in turns
+      var h = 26 + 56 * (0.5 + 0.5 * Math.sin(t * (0.6 + 0.11 * i) + i * 2.3)) + 70 * surge * surge;
       var w = 5 + (i % 3) * 3;
       var sway = Math.sin(t * 1.1 + i * 2.3) * 14;
       var by = sy + 10; // base hidden under the body
@@ -86,6 +87,45 @@
     ctx.lineWidth = 1;
     ctx.strokeStyle = 'rgba(190,40,160,0.45)';
     ctx.stroke();
+    // glowing claw tips
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.beginPath();
+    for (i = 0; i < TENDRILS; i++) {
+      var xt = camX + ((i + 0.5) / TENDRILS - 0.5) * viewW * 0.9 +
+        Math.sin(t * 0.3 + i * 1.9) * viewW * 0.04;
+      var st = wave(xt, t, MAIN);
+      var ht = 26 + 56 * (0.5 + 0.5 * Math.sin(t * (0.6 + 0.11 * i) + i * 2.3)) +
+        70 * Math.pow(Math.max(0, Math.sin(t * 0.55 + i * 0.9)), 2);
+      var tx = xt + Math.sin(t * 1.1 + i * 2.3) * 14, ty = st - ht;
+      ctx.moveTo(tx + 5, ty);
+      ctx.arc(tx, ty, 5, 0, Math.PI * 2);
+    }
+    ctx.fillStyle = 'rgba(255,50,120,0.28)';
+    ctx.fill();
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  // Slit eyes blinking open deep in the darkness.
+  function drawEyes(ctx, t, camX, viewW, surfY) {
+    for (var i = 0; i < 4; i++) {
+      var ph = t * 0.35 + i * 1.7;
+      var open = Math.sin(ph) * Math.sin(ph * 0.43 + i);   // irregular blink
+      if (open < 0.25) continue;
+      var a = Math.min(1, (open - 0.25) * 3);
+      var ex = camX + (((i * 0.37 + Math.floor(ph / 6.283) * 0.23) % 1) - 0.5) * viewW * 0.85;
+      var ey = surfY + 70 + i * 55 + Math.sin(t * 0.5 + i) * 6;
+      for (var s = -1; s <= 1; s += 2) {
+        var x = ex + s * (10 + i * 2);
+        ctx.fillStyle = 'rgba(255,40,70,' + (0.75 * a).toFixed(3) + ')';
+        ctx.beginPath();
+        ctx.ellipse(x, ey, 7 + i, 2.2 * a + 0.4, s * -0.35, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255,200,200,' + (0.9 * a).toFixed(3) + ')';
+        ctx.beginPath();
+        ctx.ellipse(x, ey, 3, 0.9 * a + 0.2, s * -0.35, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
   }
 
   function spawnEmber(x, t) {
@@ -194,6 +234,12 @@
       stepEmbers(dt, t, camX, viewW);
 
       ctx.save();
+      // heat-haze glow reaching up from the surface, breathing slowly
+      var up = ctx.createLinearGradient(0, surfY - 210, 0, surfY);
+      up.addColorStop(0, 'rgba(190,20,110,0)');
+      up.addColorStop(1, 'rgba(190,20,110,' + (0.22 + 0.08 * Math.sin(t * 1.6)).toFixed(3) + ')');
+      ctx.fillStyle = up;
+      ctx.fillRect(x0, surfY - 210, x1 - x0, 230);
       drawTendrils(ctx, t, camX, viewW);
 
       // Haze layers behind the body.
@@ -229,6 +275,7 @@
       ctx.lineWidth = 2;
       ctx.stroke();
 
+      drawEyes(ctx, t, camX, viewW, surfY);
       drawEmbers(ctx, camX, viewW);
       ctx.restore();
     }
