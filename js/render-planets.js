@@ -133,7 +133,7 @@
   function emboss(grid, w, h, i, j) {
     var a = grid[j * w + i];
     var b = grid[Math.min(h - 1, j + 1) * w + ((i + 1) % w)];
-    return a - b;
+    return clamp(a - b, -0.16, 0.16);
   }
 
   // Draw feature fn(ox) three times so shapes crossing the seam wrap around.
@@ -251,7 +251,7 @@
 
   function texGas(p, rnd, TH, W, pad) {
     var sw = Math.ceil(W / 2), sh = Math.ceil(TH / 2), hue = p.hue, i;
-    var g = fbmGrid(rnd, sw, sh, 5, 12, 4);
+    var g = fbmGrid(rnd, sw, sh, 5, 7, 3);
     var bands = 3 + rnd() * 3, ph = rnd() * 6;
     var lut = makeLUT([
       [0, hue, 55, 28], [0.25, hue + 14, 60, 45], [0.5, hue - 8, 52, 62],
@@ -259,8 +259,8 @@
     ]);
     var small = paint(sw, sh, function (ci, cj, d, o) {
       var v = cj / (sh - 1), n = g[cj * sw + ci];
-      var val = 0.5 + 0.5 * Math.sin(TAU * (v * bands + (n - 0.5) * 1.15) + ph);
-      val = 0.78 * val + 0.22 * n;
+      var val = 0.5 + 0.5 * Math.sin(TAU * (v * bands + (n - 0.5) * 0.65) + ph);
+      val = 0.88 * val + 0.12 * n;
       var k = Math.round(clamp(val, 0, 1) * 255);
       var pole = 1 - 0.4 * Math.pow(Math.abs(v - 0.5) * 2, 3);
       d[o] = lut[k * 4] * pole; d[o + 1] = lut[k * 4 + 1] * pole; d[o + 2] = lut[k * 4 + 2] * pole; d[o + 3] = 255;
@@ -284,16 +284,16 @@
     }
     eddy(sx, sy, TH * 0.2, TH * 0.11, hue + 30, 62);
     for (i = 0; i < 5; i++) eddy(rnd() * W, TH * (0.15 + rnd() * 0.7), TH * (0.05 + rnd() * 0.05), TH * 0.03, hue + 15, 78);
-    return { surf: surf, clouds: texClouds(rnd, TH, W, pad, 3, 8, 0.5, 0.8, 0.4, hue) };
+    return { surf: surf, clouds: texClouds(rnd, TH, W, pad, 3, 5, 0.5, 0.8, 0.4, hue) };
   }
 
   function texLava(p, rnd, TH, W, pad) {
     var sw = Math.ceil(W / 2), sh = Math.ceil(TH / 2);
     var g = fbmGrid(rnd, sw, sh, 4, 3, 5);
-    var crust = makeLUT([[0, 8, 28, 5], [0.5, 8, 24, 11], [1, 14, 20, 21]]);
+    var crust = makeLUT([[0, 8, 30, 3], [0.5, 8, 26, 8], [1, 12, 22, 17]]);
     var fire = makeLUT([
       [0, 0, 100, 25, 0], [0.18, 4, 100, 34, 0.6], [0.45, 16, 100, 48, 0.92],
-      [0.75, 36, 100, 60, 1], [1, 52, 100, 86, 1]
+      [0.75, 28, 100, 50, 1], [1, 44, 100, 68, 1]
     ]);
     var surf = blit(paint(sw, sh, function (ci, cj, d, o) {
       var n = g[cj * sw + ci], k = Math.round(n * 255), e = 1 + emboss(g, sw, sh, ci, cj) * 3;
@@ -301,8 +301,8 @@
     }), W, TH, pad);
     var glow = blit(paint(sw, sh, function (ci, cj, d, o) {
       var n = g[cj * sw + ci], rid = 1 - Math.abs(2 * n - 1);
-      var gl = Math.max(smooth(0.8, 0.985, rid), smooth(0.28, 0.1, n));
-      var k = Math.round(gl * 255);
+      var gl = smooth(0.74, 0.985, rid) * (0.8 + 0.2 * rid) + 0.16 * smooth(0.5, 0.74, rid);
+      var k = Math.round(Math.min(1, gl) * 255);
       d[o] = fire[k * 4]; d[o + 1] = fire[k * 4 + 1]; d[o + 2] = fire[k * 4 + 2]; d[o + 3] = fire[k * 4 + 3];
     }), W, TH, pad);
     return { surf: surf, glow: glow };
@@ -581,8 +581,8 @@
     // A glint travelling along the ring.
     var ga = time * 0.5 + e.phase;
     ga = a0 + frac((ga - a0) / PI) * PI;
-    ctx.strokeStyle = 'rgba(255,255,255,0.55)'; ctx.lineWidth = r * 0.13;
-    ctx.beginPath(); ctx.arc(0, 0, r * 1.78, ga - 0.16, ga + 0.16); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = r * 0.1;
+    ctx.beginPath(); ctx.arc(0, 0, r * 1.78, ga - 0.1, ga + 0.1); ctx.stroke();
     ctx.restore();
   }
 
@@ -622,11 +622,11 @@
         for (j = 1; j <= n; j++) ctx.lineTo(pts[j * 2] * r, pts[j * 2 + 1] * r);
       }
       if (pass === 0) {
-        ctx.strokeStyle = 'rgba(8,3,2,0.9)'; ctx.lineWidth = r * (0.02 + 0.09 * c);
+        ctx.strokeStyle = 'rgba(8,3,2,0.9)'; ctx.lineWidth = r * (0.016 + 0.07 * c);
       } else {
         ctx.globalCompositeOperation = 'lighter';
         ctx.strokeStyle = 'rgba(255,' + Math.round(110 + 60 * c) + ',40,' + (0.25 + 0.7 * c).toFixed(2) + ')';
-        ctx.lineWidth = r * (0.01 + 0.05 * c);
+        ctx.lineWidth = r * (0.008 + 0.04 * c);
       }
       ctx.stroke();
     }
@@ -657,7 +657,7 @@
       ctx.stroke();
       // Hot underside while the chunk is fresh.
       ctx.globalCompositeOperation = 'lighter';
-      ctx.fillStyle = 'rgba(255,120,40,' + (0.5 * (1 - t)).toFixed(2) + ')';
+      ctx.fillStyle = 'rgba(255,110,30,' + (0.12 * (1 - t) * (1 - t)).toFixed(2) + ')';
       ctx.fill();
       ctx.restore();
     }
@@ -677,7 +677,7 @@
       if (tw < 0.5) continue;
       var x = r * Math.sin(l), y = (s.v - 0.5) * 2 * r;
       if (x * x + y * y > r * r * 0.8) continue;
-      var a = (tw - 0.5) * 2, len = r * (0.06 + 0.1 * a);
+      var a = (tw - 0.5) * 2, len = r * (0.04 + 0.07 * a);
       ctx.globalAlpha = a;
       ctx.beginPath();
       ctx.moveTo(x - len, y); ctx.lineTo(x + len, y);
@@ -704,17 +704,17 @@
     x.save();
     x.translate(R, R);
     x.beginPath(); x.arc(0, 0, R, 0, TAU); x.clip();
-    if (e.type === 'jelly') {
-      // Drifting dark nucleus seen through the translucent skin.
-      var nx = Math.sin(time * 0.8 + e.phase) * R * 0.16, ny = Math.cos(time * 0.62 + e.phase) * R * 0.14;
-      var ng = x.createRadialGradient(nx, ny, 0, nx, ny, R * 0.55);
-      ng.addColorStop(0, hsl(p.hue + 35, 90, 28, 0.9));
-      ng.addColorStop(1, hsl(p.hue + 35, 90, 28, 0));
-      x.fillStyle = ng; x.fillRect(-R, -R, R * 2, R * 2);
-      x.globalAlpha = 0.84;
-    }
     drawSphere(x, e.surf, e.W, e.TH, R, rot, 0.6);
-    x.globalAlpha = 1;
+    if (e.type === 'jelly') {
+      // Drifting dark nucleus glowing through the skin.
+      var nx = Math.sin(time * 0.8 + e.phase) * R * 0.16, ny = Math.cos(time * 0.62 + e.phase) * R * 0.14;
+      var ng = x.createRadialGradient(nx, ny, 0, nx, ny, R * 0.6);
+      ng.addColorStop(0, hsl(p.hue + 35, 90, 26, 0.75));
+      ng.addColorStop(1, hsl(p.hue + 35, 90, 26, 0));
+      x.globalCompositeOperation = 'source-atop';
+      x.fillStyle = ng; x.fillRect(-R, -R, R * 2, R * 2);
+      x.globalCompositeOperation = 'source-over';
+    }
     if (e.clouds) {
       if (e.type === 'rocky') x.globalAlpha = 0.8;
       drawSphere(x, e.clouds, e.W, e.TH, R, rot * 1.5 + time * 0.05, 0);
@@ -758,7 +758,9 @@
 
     var a0 = ctx.globalAlpha;
     refreshBuffers(e, p, time, rot);
+    if (type === 'jelly') ctx.globalAlpha = a0 * 0.9;
     ctx.drawImage(e.buf, -r, -r, r * 2, r * 2);
+    ctx.globalAlpha = a0;
 
     if (e.gbuf) {
       // Molten cracks glow brighter and dimmer; additive so they read as light.

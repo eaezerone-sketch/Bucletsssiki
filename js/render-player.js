@@ -68,6 +68,8 @@
   // ---- shared per-frame state (tether lag) ----------------------------------
 
   var st = { planet: null, cx: 0, cy: 0, lastT: -1, ready: false };
+  var tpx = [], tpy = [];   // reused tether polyline buffers
+  for (var ti = 0; ti < 19; ti++) { tpx.push(0); tpy.push(0); }
 
   // ---- trail: tapered glowing ribbon ----------------------------------------------
 
@@ -181,40 +183,82 @@
     var maxBend = 10 + d * 0.5;
     if (ol > maxBend) { st.cx = mx + ox / ol * maxBend; st.cy = my + oy / ol * maxBend; }
 
-    var cool = mix(color, '#ffffff', 0.35 + taut * 0.5);
+    // tension colour: cool cord -> white-hot -> amber when really stretched
+    var over = clamp((stretch - 0.35) * 2, 0, 1);
+    var cool = mix(mix(color, '#ffffff', 0.35 + taut * 0.5), '#ffc23a', over * 0.6);
     var line = heatF > 0 ? mix(color, HEAT, heatF) : cool;
-    var gl = heatF > 0 ? HEAT : color;
+    var gl = heatF > 0 ? HEAT : (over > 0.3 ? '#ffb03a' : color);
+
+    // sample the bent cord into a polyline with a vibrating-string wave on top
+    var lt = p.latchT !== undefined ? p.latchT : 9;
+    var wAmp = Math.exp(-lt * 3.2) * (2 + clamp(Math.abs(stretch), 0, 1.2) * 10) * (lt < 2 ? 1 : 0);
+    var wPh = lt * 46;
+    var ex = p.x, ey = p.y, cx = st.cx, cy = st.cy;
+    var ddx = ex - sx, ddy = ey - sy, dl = Math.sqrt(ddx * ddx + ddy * ddy) || 1;
+    var N = 18, i, u, iu, bx, by, tgx2, tgy2, tl, off;
+    for (i = 0; i <= N; i++) {
+      u = i / N; iu = 1 - u;
+      bx = iu * iu * sx + 2 * u * iu * cx + u * u * ex;
+      by = iu * iu * sy + 2 * u * iu * cy + u * u * ey;
+      tgx2 = 2 * iu * (cx - sx) + 2 * u * (ex - cx);
+      tgy2 = 2 * iu * (cy - sy) + 2 * u * (ey - cy);
+      tl = Math.sqrt(tgx2 * tgx2 + tgy2 * tgy2) || 1;
+      off = wAmp * Math.sin(u * Math.PI) * Math.sin(u * 6.28 * 1.5 + wPh);
+      tpx[i] = bx - (tgy2 / tl) * off;
+      tpy[i] = by + (tgx2 / tl) * off;
+    }
 
     ctx.save();
     ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
     ctx.beginPath();
-    ctx.moveTo(sx, sy);
-    ctx.quadraticCurveTo(st.cx, st.cy, p.x, p.y);
-    // wide soft glow
+    ctx.moveTo(tpx[0], tpy[0]);
+    for (i = 1; i <= N; i++) ctx.lineTo(tpx[i], tpy[i]);
+    // wide soft glow (swells with tension)
     ctx.globalCompositeOperation = 'lighter';
-    ctx.strokeStyle = rgba(gl, 0.10 + 0.3 * taut);
-    ctx.lineWidth = 4 + taut * 9;
+    ctx.strokeStyle = rgba(gl, 0.12 + 0.34 * taut);
+    ctx.lineWidth = 5 + taut * 11;
     ctx.stroke();
-    // body of the cord
+    // body of the cord: thins out as it stretches, like a rubber band
     ctx.globalCompositeOperation = 'source-over';
-    ctx.globalAlpha = 0.65 + 0.35 * taut;
+    ctx.globalAlpha = 0.7 + 0.3 * taut;
     ctx.strokeStyle = line;
-    ctx.lineWidth = 1.5 + taut * 2.2;
+    ctx.lineWidth = 2.4 + slack * 0.6 - taut * 0.6 + taut * 1.6;
     ctx.stroke();
+    // rubber-band tick marks: the gaps open up as the cord stretches
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = 0.5 + 0.5 * taut;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1 + taut * 1.4;
+    ctx.setLineDash([1.5, 3.5 + clamp(stretch, 0, 1.5) * 14]);
+    ctx.lineDashOffset = -(time * 40) % 64;
+    ctx.stroke();
+    ctx.setLineDash([]);
     // bright core when stretched
     if (taut > 0.05) {
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.globalAlpha = taut;
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 0.9 + taut * 1.1;
+      ctx.globalAlpha = taut * 0.9;
+      ctx.lineWidth = 0.8 + taut * 0.9;
       ctx.stroke();
     }
-    // anchor bead on the planet surface
-    ctx.globalCompositeOperation = 'lighter';
-    glow(ctx, gl, sx, sy, 6 + taut * 4, 0.5 + 0.4 * taut);
+    // anchor bead on the planet surface (flares when the band is pulled)
+    glow(ctx, gl, sx, sy, 7 + taut * 8, 0.5 + 0.5 * taut);
     // glow knot at the ship end
-    glow(ctx, gl, p.x, p.y, 13 + taut * 9, 0.55 + 0.45 * taut);
+    glow(ctx, gl, p.x, p.y, 13 + taut * 11, 0.55 + 0.45 * taut);
     ctx.restore();
+
+    // snap ring: expanding shockwave around the ship right after the latch
+    if (lt < 0.45) {
+      var k = lt / 0.45, e = 1 - (1 - k) * (1 - k) * (1 - k);
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.strokeStyle = rgba(gl, 1);
+      ctx.globalAlpha = (1 - k) * 0.85;
+      ctx.lineWidth = 3 * (1 - k) + 0.6;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 8 + 34 * e, 0, TAU);
+      ctx.stroke();
+      ctx.restore();
+    }
   }
 
   // ---- trajectory preview -----------------------------------------------------------
