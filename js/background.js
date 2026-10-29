@@ -282,7 +282,8 @@
       ctx.globalAlpha = 1;
 
       // Static base gradient.
-      ctx.drawImage(baseCanvas, 0, 0, w, h);
+      var BX = window.__BGX | 0;
+      if (!(BX & 1)) ctx.drawImage(baseCanvas, 0, 0, w, h);
 
       // Soft nebula blobs; hue drifts slowly with altitude. The small sprite is stretched
       // without smoothing: the gradient is so soft that blocks are invisible, and a
@@ -295,12 +296,12 @@
       var n1 = nebulaSprite(0, hue, 70, 45, 0.16);
       var n2 = nebulaSprite(1, hue2, 80, 50, 0.12);
       ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(n1, w * 0.3 - r, cy1 - r, r * 2, r * 2);
-      ctx.drawImage(n2, w * 0.8 - r * 0.8, cy2 - r * 0.8, r * 1.6, r * 1.6);
+      if (!(BX & 2)) ctx.drawImage(n1, w * 0.3 - r, cy1 - r, r * 2, r * 2);
+      if (!(BX & 2)) ctx.drawImage(n2, w * 0.8 - r * 0.8, cy2 - r * 0.8, r * 1.6, r * 1.6);
       ctx.imageSmoothingEnabled = true;
 
       // Distant spiral galaxies, slowly turning.
-      for (var gi = 0; gi < galaxies.length; gi++) {
+      for (var gi = 0; gi < galaxies.length && !(BX & 4); gi++) {
         var g = galaxies[gi];
         var R = g.R;
         var ext = h + R * 2;
@@ -314,7 +315,7 @@
 
       // Star layers: scrolled by camY * factor, wrapped vertically, twinkling.
       ctx.fillStyle = C.text;
-      for (var li = 0; li < LAYERS.length; li++) {
+      for (var li = 0; li < LAYERS.length && !(BX & 8); li++) {
         var L = LAYERS[li];
         var data = layerData[li];
         var off = camY * L.factor;
@@ -330,7 +331,7 @@
 
       // Dust motes: barely parallax, slow upward drift, faint shimmer.
       ctx.fillStyle = C.accent;
-      for (var mi = 0; mi < MOTE_COUNT; mi++) {
+      for (var mi = 0; mi < MOTE_COUNT && !(BX & 16); mi++) {
         var mx = motes[mi * 4] * w;
         var my = wrap(motes[mi * 4 + 1] * h - camY * 0.08 - time * 5, h);
         var ms = motes[mi * 4 + 2];
@@ -344,7 +345,7 @@
 
       // Vignette last, darkening the screen edges.
       ctx.globalAlpha = 1;
-      ctx.drawImage(vignetteCanvas, 0, 0, w, h);
+      if (!(BX & 32)) ctx.drawImage(vignetteCanvas, 0, 0, w, h);
       ctx.restore();
     }
   };
