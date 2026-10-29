@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#05010f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Орбита — космическая игра в один тап</title>
+  <meta name="description" content="Орбита — аркада в один тап: спутник срывается с орбиты, летит по касательной и ловит новые планеты. Собирай звёзды, уходи от астероидов и поднимайся как можно выше.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <canvas id="game"></canvas>
+    <div id="hud" class="hud hidden"></div>
+    <div id="screens"></div>
+    <div id="tutorial"></div>
+  </div>
+  <noscript>
+    <p>Для игры «Орбита» нужен JavaScript. Включите его в настройках браузера и обновите страницу.</p>
+  </noscript>
+  <script src="js/config.js"></script>
+  <script src="js/math.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/haptics.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/difficulty.js"></script>
+  <script src="js/planets.js"></script>
+  <script src="js/stars.js"></script>
+  <script src="js/asteroids.js"></script>
+  <script src="js/powerups.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/score.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/skins.js"></script>
+  <script src="js/background.js"></script>
+  <script src="js/render-planets.js"></script>
+  <script src="js/render-entities.js"></script>
+  <script src="js/render-player.js"></script>
+  <script src="js/hud.js"></script>
+  <script src="js/screens.js"></script>
+  <script src="js/tutorial.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
