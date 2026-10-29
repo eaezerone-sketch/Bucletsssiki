@@ -1194,9 +1194,13 @@ button {
   .screen-over .screen-card > :nth-child(4) { grid-column: 1; grid-row: 4; }
   .screen-over .screen-card > :nth-child(5) { grid-column: 1; grid-row: 5; justify-self: center; }
   .screen-over .screen-card > :nth-child(6) { grid-column: 2; grid-row: 1 / span 2; }
-  .screen-over .screen-card > :nth-child(7) { grid-column: 2; grid-row: 3; }
-  .screen-over .screen-card > :nth-child(8) { grid-column: 2; grid-row: 4; }
-  .screen-over .screen-card > :nth-child(9) { grid-column: 2; grid-row: 5; }
+  /* right column below the stats flows automatically, so a hidden achievements list leaves no gap */
+  .screen-over .screen-card > :nth-child(7),
+  .screen-over .screen-card > :nth-child(8),
+  .screen-over .screen-card > :nth-child(9) { grid-column: 2; }
+
+  .screen-over .stat-cell { padding: 6px 4px; }
+  .screen-over .stat-label { font-size: 9px; letter-spacing: 0.04em; }
 }
 
 /* short portrait phones (320x568 class): tighter cards so menu and game over fit without scrolling */
@@ -1379,7 +1383,8 @@ button {
   }
 
   .stat-label {
-    font-size: 13px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
   }
 
   .stat-value {

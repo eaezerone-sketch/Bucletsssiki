@@ -309,11 +309,12 @@
       var cy2 = h * 0.75 + wrap(camY * 0.02 + h * 0.25, h * 0.5);
       var n1 = nebulaSprite(0, hue, 70, 45, 0.16);
       var n2 = nebulaSprite(1, hue2, 80, 50, 0.12);
-      sc.drawImage(n1, w * 0.3 - r, cy1 - r, r * 2, r * 2);
-      sc.drawImage(n2, w * 0.8 - r * 0.8, cy2 - r * 0.8, r * 1.6, r * 1.6);
+      var BX = window.__BGX | 0; // TEMP
+      if (!(BX & 1)) { sc.drawImage(n1, w * 0.3 - r, cy1 - r, r * 2, r * 2);
+      sc.drawImage(n2, w * 0.8 - r * 0.8, cy2 - r * 0.8, r * 1.6, r * 1.6); }
 
       // Distant spiral galaxies, slowly turning.
-      for (var gi = 0; gi < galaxies.length; gi++) {
+      for (var gi = 0; gi < galaxies.length && !(BX & 2); gi++) {
         var g = galaxies[gi];
         var R = g.R;
         var ext = h + R * 2;
@@ -326,14 +327,14 @@
       sc.setTransform(softKx, 0, 0, softKy, 0, 0);
 
       // Vignette on the soft layer, then one blit to the screen.
-      sc.drawImage(vignetteCanvas, 0, 0, w, h);
+      if (!(BX & 4)) sc.drawImage(vignetteCanvas, 0, 0, w, h);
       ctx.save();
       ctx.globalAlpha = 1;
-      ctx.drawImage(softCanvas, 0, 0, w, h);
+      if (!(BX & 8)) ctx.drawImage(softCanvas, 0, 0, w, h);
 
       // Star layers: scrolled by camY * factor, wrapped vertically, twinkling.
       ctx.fillStyle = C.text;
-      for (var li = 0; li < LAYERS.length; li++) {
+      for (var li = 0; li < LAYERS.length && !(BX & 16); li++) {
         var L = LAYERS[li];
         var data = layerData[li];
         var off = camY * L.factor;
@@ -349,7 +350,7 @@
 
       // Dust motes: barely parallax, slow upward drift, faint shimmer.
       ctx.fillStyle = C.accent;
-      for (var mi = 0; mi < MOTE_COUNT; mi++) {
+      for (var mi = 0; mi < MOTE_COUNT && !(BX & 32); mi++) {
         var mx = motes[mi * 4] * w;
         var my = wrap(motes[mi * 4 + 1] * h - camY * 0.08 - time * 5, h);
         var ms = motes[mi * 4 + 2];
