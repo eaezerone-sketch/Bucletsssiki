@@ -159,6 +159,29 @@ button {
   align-self: center;
 }
 
+/* Combo ring: a conic sweep drawn around the pill, filled by --combo (0..1, set from JS). */
+.hud-combo {
+  position: relative;
+  isolation: isolate;
+}
+
+.hud-combo::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    var(--accent2) 0deg calc(var(--combo, 0) * 360deg),
+    rgba(255, 95, 210, 0.18) calc(var(--combo, 0) * 360deg) 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+}
+
 .icon-btn {
   position: absolute;
   right: 0;
@@ -285,6 +308,96 @@ button {
 
 .hud-flash.show {
   animation: flashPop 0.9s var(--ease-out) both;
+}
+
+/* Height readout: small pill on the left of the score row; digits do not jitter. */
+.hud-height {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: rgba(10, 6, 30, 0.6);
+  color: var(--accent);
+  font-size: clamp(11px, 3.1vw, 13px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px rgba(125, 249, 255, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+/* Void edge: rising darkness along the bottom. --void (0..1) is set from JS. */
+.hud-void {
+  --void: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18vh;
+  background: linear-gradient(to top, rgba(255, 45, 85, calc(var(--void) * 0.55)), transparent);
+  pointer-events: none;
+}
+
+.hud-void.danger {
+  animation: voidPulse 0.9s ease-in-out infinite;
+}
+
+/* Toast: top-center card that slides down while .show is set (JS removes it after ~2.6 s). */
+.hud-toast {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--safe-t) + var(--hud-h) + 44px);
+  width: max-content;
+  max-width: min(88vw, 340px);
+  padding: 10px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: rgba(10, 6, 30, 0.78);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(125, 249, 255, 0.2);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -18px);
+  transition: opacity 0.35s ease, transform 0.45s var(--ease-out);
+}
+
+.hud-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.hud-toast-title {
+  font-size: clamp(14px, 4vw, 17px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(125, 249, 255, 0.45);
+}
+
+.hud-toast-title:empty,
+.hud-toast-text:empty {
+  display: none;
+}
+
+.hud-toast-text {
+  margin-top: 3px;
+  font-size: clamp(12px, 3.4vw, 14px);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
 }
 
 /* ---------- screens (menu / pause / over) ---------- */
@@ -587,6 +700,168 @@ button {
   transform: none;
 }
 
+/* ---------- over screen: stats, new achievements, achievements button ---------- */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 14px 0 0;
+}
+
+.stat-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  padding: 8px 6px;
+  border-radius: 14px;
+  border: 1px solid rgba(238, 242, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.stat-label {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.stat-value {
+  max-width: 100%;
+  font-size: clamp(15px, 4.6vw, 19px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.new-ach {
+  display: grid;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.new-ach > * {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 216, 107, 0.45);
+  background: rgba(255, 216, 107, 0.08);
+  color: var(--star);
+  font-size: clamp(13px, 3.7vw, 15px);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+  text-shadow: 0 0 10px rgba(255, 216, 107, 0.35);
+  box-shadow: 0 0 14px rgba(255, 216, 107, 0.15);
+}
+
+.new-ach > *::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.ach-btn {
+  font-variant-numeric: tabular-nums;
+}
+
+.ach-btn .ach-count {
+  opacity: 0.75;
+  font-weight: 600;
+}
+
+.screen-achievements .screen-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 460px;
+}
+
+.ach-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 55vh;
+  margin: 14px 0 0;
+  padding: 2px 6px 2px 2px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  text-align: left;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(125, 249, 255, 0.35) transparent;
+}
+
+.ach {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(125, 249, 255, 0.28);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 14px rgba(125, 249, 255, 0.06);
+}
+
+.ach-name {
+  font-size: clamp(14px, 3.9vw, 16px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+.ach-desc {
+  font-size: clamp(12px, 3.4vw, 14px);
+  line-height: 1.35;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+.ach.locked {
+  opacity: 0.45;
+  filter: grayscale(0.8);
+  border-color: rgba(238, 242, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: none;
+  padding-right: 40px;
+}
+
+.ach.locked .ach-name {
+  color: var(--text);
+}
+
+.ach.locked::before {
+  content: "\1F512";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  line-height: 1;
+}
+
 /* ---------- tutorial ---------- */
 
 .tutorial-hint {
@@ -651,6 +926,11 @@ button {
   animation-delay: 0.9s;
 }
 
+/* hint without the tap ring (JS adds .no-icon for text-only steps) */
+#tutorial.no-icon .tap-icon {
+  display: none;
+}
+
 /* ---------- keyframes ---------- */
 
 @keyframes scorePop {
@@ -685,6 +965,11 @@ button {
 @keyframes chipIn {
   from { opacity: 0; transform: translateY(-6px) scale(0.85); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes voidPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 @keyframes badgePulse {
@@ -803,6 +1088,91 @@ button {
     width: 48px;
     height: 48px;
   }
+
+  .hud-height {
+    padding: 2px 8px;
+    font-size: 11px;
+  }
+
+  .hud-void {
+    height: 14vh;
+  }
+
+  .hud-toast {
+    top: calc(var(--safe-t) + var(--hud-h) + 34px);
+    padding: 6px 12px;
+  }
+
+  .hud-toast-title {
+    font-size: 14px;
+  }
+
+  .hud-toast-text {
+    font-size: 12px;
+  }
+
+  .stats-grid {
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .stat-cell {
+    padding: 4px 6px;
+  }
+
+  .stat-value {
+    font-size: 16px;
+  }
+
+  .new-ach {
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .new-ach > * {
+    padding: 5px 10px;
+  }
+
+  .ach-list {
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .ach {
+    padding: 6px 12px;
+  }
+
+  .ach-desc {
+    font-size: 12px;
+  }
+
+  .ach.locked {
+    padding-right: 34px;
+  }
+
+  .ach.locked::before {
+    right: 10px;
+  }
+
+  .screen-achievements .screen-card {
+    max-width: 520px;
+  }
+}
+
+/* very narrow portrait phones (320px class): stats in two columns */
+@media (max-width: 340px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hud-height {
+    padding: 2px 8px;
+    font-size: 11px;
+  }
+
+  .hud-toast {
+    max-width: 92vw;
+  }
 }
 
 /* ---------- tablets and desktops ---------- */
@@ -840,9 +1210,82 @@ button {
   }
 }
 
+@media (min-width: 1024px) {
+  .hud-height {
+    font-size: 14px;
+  }
+}
+
 @media (min-width: 1600px) {
   .hud-score {
     font-size: 88px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .ach-name {
+    font-size: 18px;
+  }
+
+  .ach-desc {
+    font-size: 15px;
+  }
+
+  .hud-toast {
+    max-width: min(88vw, 420px);
+  }
+}
+
+/* 4K / large displays */
+@media (min-width: 2400px) {
+  .hud-height {
+    font-size: 18px;
+  }
+
+  .hud-toast {
+    max-width: 520px;
+  }
+
+  .hud-toast-title {
+    font-size: 24px;
+  }
+
+  .hud-toast-text {
+    font-size: 18px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+  }
+
+  .stat-value {
+    font-size: 30px;
+  }
+
+  .new-ach > * {
+    font-size: 20px;
+  }
+
+  .ach-name {
+    font-size: 22px;
+  }
+
+  .ach-desc {
+    font-size: 17px;
+  }
+
+  .ach {
+    padding: 14px 20px;
+  }
+
+  .screen-achievements .screen-card {
+    max-width: 680px;
   }
 }
 
@@ -875,6 +1318,10 @@ button {
 
   .tutorial-hint {
     transform: translate(-50%, 0);
+  }
+
+  .hud-void.danger {
+    animation: none;
   }
 
   /* static ring instead of a pulse */
