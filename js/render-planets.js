@@ -533,6 +533,7 @@
       halo: haloSprite(type, hue, st.halo),
       rim: rimSprite(type, hue, TH, st.rimA),
       cracks: null, chunks: null, sparks: null,
+      buf: null, bctx: null, gbuf: null, gctx: null, bufRot: 0, bufT: 0,
       base: type === 'lava' ? hsl(10, 40, 8) : (type === 'jelly' ? hsl(hue + 20, 80, 38) : hsl(hue, 40, 22)),
       tilt: -0.28 + ((seed >>> 4) % 9 - 4) * 0.045,
       phase: rnd() * TAU, nextEmber: 0, stamp: 0
@@ -687,6 +688,51 @@
     ctx.globalCompositeOperation = 'source-over';
   }
 
+  // The rotating surface (texture strips + clouds + lighting) is rendered into a per-planet
+  // buffer only when it has moved about a pixel, so most frames cost one drawImage.
+  function refreshBuffers(e, p, time, rot) {
+    var R = e.TH / 2;
+    var moved = Math.abs(rot - e.bufRot) * 1.5 + Math.abs(time - e.bufT) * 0.05;
+    if (e.buf && moved * R < 1 && !(e.type === 'jelly' && Math.abs(time - e.bufT) > 0.1)) return;
+    e.bufRot = rot; e.bufT = time;
+    if (!e.buf) {
+      e.buf = mk(e.TH, e.TH); e.bctx = e.buf.getContext('2d');
+      if (e.glow) { e.gbuf = mk(e.TH, e.TH); e.gctx = e.gbuf.getContext('2d'); }
+    }
+    var x = e.bctx;
+    x.clearRect(0, 0, e.TH, e.TH);
+    x.save();
+    x.translate(R, R);
+    x.beginPath(); x.arc(0, 0, R, 0, TAU); x.clip();
+    if (e.type === 'jelly') {
+      // Drifting dark nucleus seen through the translucent skin.
+      var nx = Math.sin(time * 0.8 + e.phase) * R * 0.16, ny = Math.cos(time * 0.62 + e.phase) * R * 0.14;
+      var ng = x.createRadialGradient(nx, ny, 0, nx, ny, R * 0.55);
+      ng.addColorStop(0, hsl(p.hue + 35, 90, 28, 0.9));
+      ng.addColorStop(1, hsl(p.hue + 35, 90, 28, 0));
+      x.fillStyle = ng; x.fillRect(-R, -R, R * 2, R * 2);
+      x.globalAlpha = 0.84;
+    }
+    drawSphere(x, e.surf, e.W, e.TH, R, rot, 0.6);
+    x.globalAlpha = 1;
+    if (e.clouds) {
+      if (e.type === 'rocky') x.globalAlpha = 0.8;
+      drawSphere(x, e.clouds, e.W, e.TH, R, rot * 1.5 + time * 0.05, 0);
+      x.globalAlpha = 1;
+    }
+    x.drawImage(e.shade, -R, -R, R * 2, R * 2);
+    x.restore();
+    if (e.gbuf) {
+      x = e.gctx;
+      x.clearRect(0, 0, e.TH, e.TH);
+      x.save();
+      x.translate(R, R);
+      x.beginPath(); x.arc(0, 0, R, 0, TAU); x.clip();
+      drawSphere(x, e.glow, e.W, e.TH, R, rot, 0);
+      x.restore();
+    }
+  }
+
   function drawBody(ctx, p, e, time, isCur, rot) {
     var r = p.radius, type = e.type;
     var c = (type === 'crumble' && p.crumble >= 0) ? clamp(p.crumble, 0, 1) : -1;
@@ -710,40 +756,24 @@
     ctx.fillStyle = e.base;
     ctx.beginPath(); ctx.arc(0, 0, r + 0.3, 0, TAU); ctx.fill();
 
-    ctx.save();
-    ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU); ctx.clip();
     var a0 = ctx.globalAlpha;
+    refreshBuffers(e, p, time, rot);
+    ctx.drawImage(e.buf, -r, -r, r * 2, r * 2);
 
-    if (type === 'jelly') {
-      // Drifting dark nucleus seen through the translucent skin.
-      var nx = Math.sin(time * 0.8 + e.phase) * r * 0.16, ny = Math.cos(time * 0.62 + e.phase) * r * 0.14;
-      var ng = ctx.createRadialGradient(nx, ny, 0, nx, ny, r * 0.55);
-      ng.addColorStop(0, hsl(p.hue + 35, 90, 28, 0.9));
-      ng.addColorStop(1, hsl(p.hue + 35, 90, 28, 0));
-      ctx.fillStyle = ng; ctx.fillRect(-r, -r, r * 2, r * 2);
-      ctx.globalAlpha = a0 * 0.84;
-    }
-    drawSphere(ctx, e.surf, e.W, e.TH, r, rot, 0.45);
-    ctx.globalAlpha = a0;
-
-    if (e.clouds) {
-      ctx.globalAlpha = a0 * (type === 'rocky' ? 0.8 : 1);
-      drawSphere(ctx, e.clouds, e.W, e.TH, r, rot * 1.5 + time * 0.03, 0);
-      ctx.globalAlpha = a0;
-    }
-
-    ctx.drawImage(e.shade, -r, -r, r * 2, r * 2);
-
-    if (e.glow) {
+    if (e.gbuf) {
       // Molten cracks glow brighter and dimmer; additive so they read as light.
       ctx.globalCompositeOperation = 'lighter';
       ctx.globalAlpha = a0 * (0.62 + 0.3 * Math.sin(time * 1.9 + e.phase) + 0.08 * Math.sin(time * 5.3));
-      drawSphere(ctx, e.glow, e.W, e.TH, r, rot, 0);
+      ctx.drawImage(e.gbuf, -r, -r, r * 2, r * 2);
       ctx.globalCompositeOperation = 'source-over';
       ctx.globalAlpha = a0;
     }
-    if (c >= 0 && e.cracks) drawCracks(ctx, e, r, c);
-    ctx.restore();
+    if (c >= 0 && e.cracks) {
+      ctx.save();
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, TAU); ctx.clip();
+      drawCracks(ctx, e, r, c);
+      ctx.restore();
+    }
 
     // Pulsing atmosphere limb.
     var pulse = 0.72 + 0.28 * Math.sin(time * 1.7 + e.phase);
