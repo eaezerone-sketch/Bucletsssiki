@@ -33,4 +33,15 @@ var standalone = '<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-
   '</head>\n<body>\n' + out + '\n</body>\n</html>\n';
 fs.writeFileSync(path.join(root, 'dist/orbita-standalone.html'), standalone);
 
+// Hosting package: dist/hosting/ = index.html + manifest + icon, ready to upload as a site root.
+var hostDir = path.join(root, 'dist/hosting');
+fs.mkdirSync(hostDir, { recursive: true });
+var hostHead = '<meta name="description" content="Орбита — космическая аркада в один тап: гравитация, упругий трос, чёрные дыры и поднимающаяся тьма.">\n' +
+  '<meta name="apple-mobile-web-app-capable" content="yes">\n' +
+  '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n' +
+  '<link rel="manifest" href="manifest.webmanifest">\n<link rel="apple-touch-icon" href="icon.svg">\n';
+fs.writeFileSync(path.join(hostDir, 'index.html'), standalone.replace('</head>', hostHead + '</head>'));
+fs.copyFileSync(path.join(root, 'manifest.webmanifest'), path.join(hostDir, 'manifest.webmanifest'));
+fs.copyFileSync(path.join(root, 'icon.svg'), path.join(hostDir, 'icon.svg'));
+
 console.log('dist/orbita.html', (out.length / 1024).toFixed(1) + ' KB, ' + scripts.length + ' scripts');
