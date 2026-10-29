@@ -58,13 +58,27 @@
     },
 
     // Map world coordinates to device pixels, centred on the camera.
-    worldTransform: function (ctx, camX, camY) {
-      var d = this.dpr * this.scale;
+    // zoom (default 1) multiplies the world scale.
+    worldTransform: function (ctx, camX, camY, zoom) {
+      var z = (zoom === undefined || zoom === null) ? 1 : zoom;
+      var s = this.scale * z;
+      var d = this.dpr * s;
       ctx.setTransform(
         d, 0, 0, d,
-        this.dpr * (this.cssW / 2 - camX * this.scale),
-        this.dpr * (this.cssH / 2 - camY * this.scale)
+        this.dpr * (this.cssW / 2 - camX * s),
+        this.dpr * (this.cssH / 2 - camY * s)
       );
+    },
+
+    // World-space width/height visible at the given zoom (default 1).
+    visibleW: function (zoom) {
+      var z = (zoom === undefined || zoom === null) ? 1 : zoom;
+      return this.w / z;
+    },
+
+    visibleH: function (zoom) {
+      var z = (zoom === undefined || zoom === null) ? 1 : zoom;
+      return this.h / z;
     },
 
     // Map CSS pixels to device pixels (for screen-space drawing).
